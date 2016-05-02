@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>4000 Footers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="homepage4.html">4000 Footers</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="homepage4.html">Home</a></li>
+      <li><a href="find_a_footer.html">Find a footer</a></li>
+      <li><a href="hike_tracker.html">Hike tracker</a></li> 
+      <li><a href="footer_map.html">Footer map</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="jumbotron">
+    <h1>4000 Footers of NH</h1>
+    <p>Track your progess through all 48 peaks</p> 
+  </div>
+  <div>
+  <h1>Find a footer</h1>
+  <p>Choose a 4000 foot peak from the dropdown below to check out the deets!</p>
+  </div>
+<div class="table-responsive">
+  <table id="mytable" class="table table-hover">
+    <tr>
+      <th>Mountain</th>
+      <th>Rank</th>
+      <th>Elevation</th>
+      <th>Prominence</th>
+    </tr>
+  </table>
+</div>      
+
+<script>
+  var mounts = {"footers":
+  [
+    {
+    "id": 2,
+    "rank": 2,
+    "peak": "Adams",
+    "elev": 5774,
+    "prom": 804,
+    "range": "Presidential"
+  },
+  {
+    "id": 14,
+    "rank": 14,
+    "peak": "Bond",
+    "elev": 4698,
+    "prom": 299,
+    "range": "Twin/Pemigewasset Wilderness"
+  },
+  {
+    "id": 30,
+    "rank": 30,
+    "peak": "Bondcliff",
+    "elev": 4265,
+    "prom": 299,
+    "range": "Twin/Pemigewasset Wilderness"
+  },
+  {
+    "id": 33,
+    "rank": 33,
+    "peak": "Cabot",
+    "elev": 4170,
+    "prom": 2674,
+    "range": "Pilot"
+  },
+  {
+    "id": 36,
+    "rank": 36,
+    "peak": "Cannon",
+    "elev": 4100,
+    "prom": 740,
+    "range": "Kinsman"
+  }]
+};
+
+
+//sort function experiment here
+
+
+for(var i=0; i<mounts["footers"].length; i++)
+  {
+    var tr="<tr>";
+    var td1="<td>"+mounts["footers"][i]["peak"]+"</td>";
+    var td2="<td>"+mounts["footers"][i]["rank"]+"</td>";
+    var td3="<td>"+mounts["footers"][i]["elev"]+"</td>";
+    var td4="<td>"+mounts["footers"][i]["prom"]+"</td></tr>";
+
+    $('#mytable').append(tr+td1+td2+td3+td4); 
+
+
+  };
+
+</script>
+
+</html>
