@@ -3,9 +3,11 @@
 <head>
   <title>4000 Footers</title>
   <meta charset="utf-8">
+  <link rel="icon" href="Images/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylez.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
@@ -18,8 +20,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="homepage4.html">Home</a></li>
       <li><a href="find_a_footer.html">Find a footer</a></li>
-      <li><a href="hike_tracker.html">Hike tracker</a></li> 
-      <li><a href="footer_map">Footer map</a></li>
+      <li><a href="footer_map.html">Footer map</a></li>
       <li><a href="resources.html">Resources</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="#">Contact</a></li>
@@ -27,27 +28,29 @@
   </div>
 </nav>
 <div class="container">
-  <div class="jumbotron">
-    <h1>4000 Footers of NH</h1>
-    <p>Track your progess through all 48 peaks</p> 
+  <div id="jumbo" class="jumbotron">
+    <h1 style="height:200px">  </h1>
+    <p> </p> 
   </div>
-  <div class="row">
+  <div id="bottom" class="row">
     <div class="col-sm-4">
-      <h3>Research</h3>
-      <p>Lookup each mountain to decide which <br>one you want to try</p>
+      <h3>Search</h3>
+      <p style="padding-bottom: 30px; padding-right:50px;">Lookup each mountain to decide which one you want to try</p>
+      <img id="img" src="Images/shan-icons_search.png" height="150" width="150">
     </div>
     <div class="col-sm-4">
-      <h3>Record</h3>
-      <p>Enter your personal data into the <br> Hike Tracker to keep track of your progress</p>
+      <h3>Plan</h3>
+      <p style="padding-bottom: 30px; padding-right:50px;">Get the info you need to plan your hike before you go</p>
+      <img id="img" src="Images/shan-icons_plan.png" height="150" width="150">
     </div>
     <div class="col-sm-4">
-      <h3>Resources</h3>        
-      <p>Use outside resources like AMC and <br> REI to make sure you're prepared for your trips</p>
+      <h3>Prepare</h3>        
+      <p style="padding-bottom: 30px; padding-right:50px;">Use outside resources like AMC and REI to make sure you're prepared for your trips</p>
+      <img id="img" src="Images/shan-icons_prepare.png" height="150" width="150">
     </div>
-  </div>
-  <div>
   </div>
 </div>
+
 
 </body>
 </html>
