@@ -2,3 +2,55 @@
 	background-color: #EEEEEE;
 	color: #4B4843;
 }
+
+
+
+#jumbo {
+    position: relative;
+    background: #000 url("Images/shan-header.png") center center;
+    width: 100%;
+    height: 1o0%;
+    background-size: cover;
+    overflow: hidden;
+}
+
+#img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#bottom {
+    padding-bottom: 40px;
+}
+
+table.tablesorter {
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+th, td {
+    padding: 7px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {background-color: #E2ECF1}
+
+th {
+   color: #4B4843;
+   font-size: 16px;
+   border: 1px solid #ddd; 
+}
+
+#glyph {
+    float: right;
+    padding-right: 15px;
+}
+
+#table_r {
+    width: 100%;
+    padding-bottom: 40px;
+    color: none;
+    border: none;
+}
