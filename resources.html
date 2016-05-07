@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>4000 Footers</title>
+  <!--Adding in all the ingredients-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -11,47 +12,39 @@
   <link rel="stylesheet" href="stylez.css">
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="homepage4.html">4000 Footers</a>
+  <!--Bootstrap nav bar-->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="homepage4.html">4000 Footers</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homepage4.html">Home</a></li>
+        <li><a href="find_a_footer.html">Find a footer</a></li>
+        <li><a href="footer_map.html">Footer map</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage4.html">Home</a></li>
-      <li><a href="find_a_footer.html">Find a footer</a></li>
-      <li><a href="footer_map.html">Footer map</a></li>
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="container">
-  <div id="jumbo" class="jumbotron">
-    <h1 style="height:200px"> </h1>
-    <p></p> 
-  </div>
-  <div>
-  <h1>Resources</h1>
-  <p>Use these links below to help prepare for your trip!</p>
-  <div style="padding-bottom: 35px;">
+  </nav>
+  <!--Bootstrap Jumbotron style header-->
+  <div class="container">
+    <div id="jumbo" class="jumbotron">
+      <h1 style="height:200px"> </h1>
+    </div>
     <div>
-      <div>
-        <img src="Images/REI.png">
-      <div/>
-      <div>
-        <img src="Images/AMC.png">
-      <div/>
-      <div>
-        <img src="Images/Patagonia.png">
-      <div/>
+      <h1>Resources</h1>
+        <p>Use these links below to help prepare for your trip!</p>
+    </div>
+    <div class ="row" id="bottom">
+      <div class="col-md-4"><a href="https://www.rei.com/" target="_blank"><img src="Images/REI.png"></a></div>
+      <div class="col-md-4"><a href="http://www.outdoors.org/" target="_blank"><img src="Images/AMC.png"></a></div>
+      <div class="col-md-4"><a href="http://www.patagonia.com/us/home" target="_blank"><img src="Images/Patagonia.png"></a></div>
+    </div>
   </div>
-</div>
-
-</form>
-</div>
-<script type="text/javascript">
-</script>
-</div>
+  <div id="bottom">
+    <p style="text-align: center;">This has been CS50...Thanks!</p>
+  </div>
 </body>
 </html>

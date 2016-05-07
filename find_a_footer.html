@@ -1,504 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+  <title>4000 Footers</title>
+  <!--Adding in all the ingredients-->
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylez.css">
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="stylez.css">
+  <script type="text/javascript" src="jquery-latest.js"></script>
 
-  <title>4000 Footers</title>
-<script type="text/javascript" src="jquery-latest.js"></script>
-<script type="text/javascript" src="jquery.tablesorter.js"></script>
-
-<script type="text/javascript" id="js">
-$(document).ready(function() 
-    {
+  <script type="text/javascript" src="table.js"></script>
+  <!--Beautifully sorts my table thanks to some guy named Christian Bach!-->
+  <script type="text/javascript" src="jquery.tablesorter.js"></script>
+  <!--http://tablesorter.com/docs/-->
+  <script type="text/javascript" id="js">
+    $(document).ready(function() 
+      {
         $("#mytable").tablesorter( {sortList: [[0,0], [2,0]]} );
-    }
-);
-</script>
-
-<script>
-  $(function() {
-  $("td[colspan=3]").find("p").hide();
-  $("table").click(function(event) {
-      event.stopPropagation();
-      var $target = $(event.target);
-      if ( $target.closest("td").attr("colspan") > 1 ) {
-        $target.slideUp();
-      } else {
-        $target.closest("tr").next().find("p").slideToggle();
-      }                    
-    });
-  });
-</script>
-
+      });
+    </script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="homepage4.html">4000 Footers</a>
+  <!--Bootstrap nav bar-->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="homepage4.html">4000 Footers</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homepage4.html">Home</a></li>
+        <li><a href="find_a_footer.html">Find a footer</a></li>
+        <li><a href="footer_map.html">Footer map</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage4.html">Home</a></li>
-      <li><a href="find_a_footer.html">Find a footer</a></li>
-      <li><a href="footer_map.html">Footer map</a></li>
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="container">
-  <div id="jumbo" class="jumbotron">
-    <h1 style="height:200px">  </h1>
-    <p> </p> 
-  </div>
-  <div>
-  <h1>Find a footer</h1>
-  <p style="padding-bottom:15px;">Choose a 4000 foot peak from the dropdown below to check out the deets!<br>Click the down arrows to sort by each category</p>
-  </div>
-  <div id="bottom" class="table-responsive">
-    <table id="mytable" class="tablesorter"> 
-    <thead> 
-        <tr> 
+  </nav>
+  <!--Page anchor for button at bottom-->
+  <a name="anchor"></a>
+  <!--Bootstrap Jumbotron style header-->
+  <div class="container">
+    <div id="jumbo" class="jumbotron">
+      <h1 style="height:200px">  </h1>
+      <p> </p> 
+    </div>
+    <div>
+    <h1>Find a footer</h1>
+    <p style="padding-bottom:15px;">Choose a 4000 foot peak from the table below to learn more!<br>Click the <b>down arrows</b> to sort by each category for easy searching,
+      then <b>click any row</b> for maps and more information!
+    </div>
+    <div class="table table-hover" id="bottom">
+      <table id="mytable" class="tablesorter"> 
+        <thead> 
+          <tr> 
             <th>Mountain<span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
-            <th>Rank<span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
-            <th>Elevation<span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
-            <th>Prominence<span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
-            <th>Range<span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
-        </tr> 
-    </thead> 
+            <th>Rank  <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+            <th>Elevation  <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+            <th>Prominence <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+            <th>Hike time <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+            <th>Trail length <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+            <th>Range <span id="glyph" class="glyphicon glyphicon-circle-arrow-down"></span></th> 
+          </tr> 
+        </thead> 
         <tbody> 
         </tbody> 
-    </table>
-</div>
+      </table>
+    </div>
 
-
-
-<script>
-  var mounts = {"footers":
-  [
-    {
-    "id": 2,
-    "rank": 2,
-    "peak": "Adams",
-    "elev": 5774,
-    "prom": 804,
-    "range": "Presidential"
-  },
-  {
-    "id": 14,
-    "rank": 14,
-    "peak": "Bond",
-    "elev": 4698,
-    "prom": 299,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 30,
-    "rank": 30,
-    "peak": "Bondcliff",
-    "elev": 4265,
-    "prom": 299,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 33,
-    "rank": 33,
-    "peak": "Cabot",
-    "elev": 4170,
-    "prom": 2674,
-    "range": "Pilot"
-  },
-  {
-    "id": 36,
-    "rank": 36,
-    "peak": "Cannon",
-    "elev": 4100,
-    "prom": 740,
-    "range": "Kinsman"
-  },
-  {
-    "id": 13,
-    "rank": 13,
-    "peak": "Carrigain",
-    "elev": 4700,
-    "prom": 2240,
-    "range": "Pemigewasset Wilderness"
-  },
-  {
-    "id": 9,
-    "rank": 9,
-    "peak": "Carter Dome",
-    "elev": 4832,
-    "prom": 2830,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 34,
-    "rank": 34,
-    "peak": "East Osceola",
-    "elev": 4156,
-    "prom": 316,
-    "range": "Sandwich"
-  },
-  {
-    "id": 11,
-    "rank": 11,
-    "peak": "Eisenhower",
-    "elev": 4780,
-    "prom": 350,
-    "range": "Presidential"
-  },
-  {
-    "id": 23,
-    "rank": 23,
-    "peak": "Field",
-    "elev": 4340,
-    "prom": 1706,
-    "range": "Willey"
-  },
-  {
-    "id": 25,
-    "rank": 25,
-    "peak": "Flume",
-    "elev": 4328,
-    "prom": 408,
-    "range": "Franconia/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 44,
-    "rank": 44,
-    "peak": "Galehead",
-    "elev": 4024,
-    "prom": 264,
-    "range": "Twin/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 17,
-    "rank": 17,
-    "peak": "Garfield",
-    "elev": 4500,
-    "prom": 820,
-    "range": "Franconia/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 37,
-    "rank": 37,
-    "peak": "Hale",
-    "elev": 4054,
-    "prom": 614,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 21,
-    "rank": 21,
-    "peak": "Hancock",
-    "elev": 4420,
-    "prom": 1247,
-    "range": "Pemigewasset Wilderness"
-  },
-  {
-    "id": 47,
-    "rank": 47,
-    "peak": "Isolation",
-    "elev": 4004,
-    "prom": 203,
-    "range": "Presidential"
-  },
-  {
-    "id": 38,
-    "rank": 38,
-    "peak": "Jackson",
-    "elev": 4052,
-    "prom": 331,
-    "range": "Presidential"
-  },
-  {
-    "id": 3,
-    "rank": 3,
-    "peak": "Jefferson",
-    "elev": 5712,
-    "prom": 742,
-    "range": "Presidential"
-  },
-  {
-    "id": 6,
-    "rank": 6,
-    "peak": "Lafayette",
-    "elev": 5260,
-    "prom": 3320,
-    "range": "Franconia/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 18,
-    "rank": 18,
-    "peak": "Liberty",
-    "elev": 4459,
-    "prom": 379,
-    "range": "Franconia/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 7,
-    "rank": 7,
-    "peak": "Lincoln",
-    "elev": 5089,
-    "prom": 180,
-    "range": "Franconia/ Pemigewasset Wilderness"
-  },
-  {
-    "id": 5,
-    "rank": 5,
-    "peak": "Madison",
-    "elev": 5367,
-    "prom": 466,
-    "range": "Presidential"
-  },
-  {
-    "id": 15,
-    "rank": 15,
-    "peak": "Middle Carter",
-    "elev": 4610,
-    "prom": 720,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 35,
-    "rank": 35,
-    "peak": "Middle Tripyramid",
-    "elev": 4140,
-    "prom": 1320,
-    "range": "Sandwich"
-  },
-  {
-    "id": 4,
-    "rank": 4,
-    "peak": "Monroe",
-    "elev": 5384,
-    "prom": 254,
-    "range": "Presidential"
-  },
-  {
-    "id": 10,
-    "rank": 10,
-    "peak": "Moosilauke",
-    "elev": 4802,
-    "prom": 2933,
-    "range": "Kinsman"
-  },
-  {
-    "id": 41,
-    "rank": 41,
-    "peak": "Moriah",
-    "elev": 4049,
-    "prom": 922,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 28,
-    "rank": 28,
-    "peak": "North Kinsman",
-    "elev": 4293,
-    "prom": 2240,
-    "range": "Kinsman"
-  },
-  {
-    "id": 32,
-    "rank": 32,
-    "peak": "North Tripyramid",
-    "elev": 4180,
-    "prom": 1320,
-    "range": "Sandwich"
-  },
-  {
-    "id": 12,
-    "rank": 12,
-    "peak": "North Twin",
-    "elev": 4761,
-    "prom": 299,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 24,
-    "rank": 24,
-    "peak": "Osceola",
-    "elev": 4340,
-    "prom": 200,
-    "range": "Sandwich"
-  },
-  {
-    "id": 43,
-    "rank": 43,
-    "peak": "Owl's Head",
-    "elev": 4025,
-    "prom": 825,
-    "range": "Pemigewasset Wilderness"
-  },
-  {
-    "id": 42,
-    "rank": 42,
-    "peak": "Passaconaway",
-    "elev": 4043,
-    "prom": 803,
-    "range": "Sandwich"
-  },
-  {
-    "id": 27,
-    "rank": 27,
-    "peak": "Pierce",
-    "elev": 4310,
-    "prom": 235,
-    "range": "Presidential"
-  },
-  {
-    "id": 19,
-    "rank": 19,
-    "peak": "South Carter",
-    "elev": 4430,
-    "prom": 230,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 26,
-    "rank": 26,
-    "peak": "South Hancock",
-    "elev": 4319,
-    "prom": 1247,
-    "range": "Pemigewasset Wilderness"
-  },
-  {
-    "id": 22,
-    "rank": 22,
-    "peak": "South Kinsman",
-    "elev": 4358,
-    "prom": 2240,
-    "range": "Kinsman"
-  },
-  {
-    "id": 8,
-    "rank": 8,
-    "peak": "South Twin",
-    "elev": 4902,
-    "prom": 1522,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 48,
-    "rank": 48,
-    "peak": "Tecumseh",
-    "elev": 4003,
-    "prom": 1739,
-    "range": "Sandwich"
-  },
-  {
-    "id": 39,
-    "rank": 39,
-    "peak": "Tom",
-    "elev": 4051,
-    "prom": 331,
-    "range": "Willey"
-  },
-  {
-    "id": 1,
-    "rank": 1,
-    "peak": "Washington",
-    "elev": 6288,
-    "prom": 6138,
-    "range": "Presidential"
-  },
-  {
-    "id": 46,
-    "rank": 46,
-    "peak": "Waumbek",
-    "elev": 4006,
-    "prom": 1289,
-    "range": "Pliny"
-  },
-  {
-    "id": 16,
-    "rank": 16,
-    "peak": "West Bond",
-    "elev": 4540,
-    "prom": 299,
-    "range": "Twin/Pemigewasset Wilderness"
-  },
-  {
-    "id": 45,
-    "rank": 45,
-    "peak": "Whiteface",
-    "elev": 4020,
-    "prom": 591,
-    "range": "Sandwich"
-  },
-  {
-    "id": 20,
-    "rank": 20,
-    "peak": "Wildcat, A peak",
-    "elev": 4422,
-    "prom": 1034,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 40,
-    "rank": 40,
-    "peak": "Wildcat, D Peak",
-    "elev": 4050,
-    "prom": 1034,
-    "range": "Carter-Moriah Range"
-  },
-  {
-    "id": 29,
-    "rank": 29,
-    "peak": "Willey",
-    "elev": 4285,
-    "prom": 256,
-    "range": "Willey"
-  },
-  {
-    "id": 31,
-    "rank": 31,
-    "peak": "Zealand",
-    "elev": 4260,
-    "prom": 246,
-    "range": "Twin/Pemigewasset Wilderness"
-  }
-]
-};
-
-//sort function experiment here
-
-for(var i=0; i<mounts["footers"].length; i++)
-  {
-    var tr="<tr>";
-    var td1="<td>"+mounts["footers"][i]["peak"]+"</td>";
-    var td2="<td>"+mounts["footers"][i]["rank"]+"</td>";
-    var td3="<td>"+mounts["footers"][i]["elev"]+"</td>";
-    var td4="<td>"+mounts["footers"][i]["prom"]+"</td>";
-    var td5="<td>"+mounts["footers"][i]["range"]+"</td></tr>";
-
-    $('#mytable').append(tr+td1+td2+td3+td4+td5); 
-
-  };
-
-</script>
-
-<div class="container">
-  <h2>Mount Bond</h2>
-  <p>Ooh this is a fancy one! Read below for more details!</p> 
-  <div class="row">
-    <div class="col-sm-6" style="float: center;"><iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d64820.07166810757!2d-71.57632822543235!3d44.110810797539145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e2!4m3!3m2!1d44.060207!2d-71.5852323!4m5!1s0x4cb380b7e35388d7%3A0x26343504872f8519!2sMt+Bond%2C+Lincoln%2C+NH+03251!3m2!1d44.152843499999996!2d-71.5311904!5e0!3m2!1sen!2sus!4v1462490720922" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-    <div class="col-sm-6">
-      <p style="text-align:left middle;">Mount Bond (4,698 ft.), the highest peak in the southern Twin range, represents, with neighboring Mt.Guyot, one of the two most remote peaks in the White Mountains. From Bond's summit, there is virtually no sign of human impact in the form of roads or buildings.</p>
+    <!--This is the backbone/structure of the panel that gets filled at the bottom of the list page-->
+    <!--It contains styling, plus, most importantly, id's that are picked up by the javascript functions at the bottom-->
+    <div "container-fluid" id="panel2">
+      <h2 id="panel-peakname"></h2>
+        <p>Ooh this is a fancy one! Read below for more details!</p>
+    <div class="row">
+      <div id="panel-trail" class="col-md-6" style="background-color:#EDF6E2;"></div>
+      <div class="col-md-6" style="background-color:#EDF6E2; padding-top=none;">
+        <h3>Overview</h3>
+          <p id="panel-overview"></p>
+          <p><br></p>
+      </div>
+      <div class="col-md-2" style="background-color: #EDF6E2;">
+        <h3><span class="glyphicon glyphicon-time"></span> Time</h3>
+          <p id="panel-time"></p>
+          <p><br></p>
+      </div>
+      <div class="col-md-2" style="background-color: #EDF6E2;">
+        <h3><span class="glyphicon glyphicon-road"></span>  Length</h3>
+          <p id="panel-len"></p>
+      </div>
+      <div class="col-md-2" style="background-color: #EDF6E2;">
+        <h3><span class="glyphicon glyphicon-signal"></span> Difficulty</h3>
+          <p id="panel-diff"></p>
+          <p><br></p>
+      </div>
+      <div>
+        <a href="#anchor"><button type="button" class="btn btn-primary">Back to top</button></a>
+      </div>
     </div>
   </div>
-</div>
 
+  <script>
+  //This function grabs all the elements for the panel from the data file
+  //The remove part had to be added so that the embedded map element would swap out,
+  //otherwise it would just add it over and over!
+    function fillpanel(peakname, overview, time, len, diff, trail)
+    {
+      $("#panel-peakname").text("Mount "+peakname);
+      $("#panel-overview").text(overview);
+      $("#panel-time").text(time);
+      $("#panel-len").text(len);
+      $("#panel-diff").text(diff);
+      $("#panel-trail > *").remove();
+      $("#panel-trail").append(trail);
+    } 
 
+    //Buddy function, does what it says, fills the panel with data from the data object
+    function fillpanelFromObject(object)
+    {
+      fillpanel(object.peak, object.overview, object.time, object.len, object.diff, object.trail)
+    }
+
+    //this loop builds the actual table you see on the page
+    for(var i=0; i<mounts["footers"].length; i++)
+    {
+      var tr="<tr id='row-"+i+"'>";
+      var td1="<td>"+mounts["footers"][i]["peak"]+"</td>";
+      var td2="<td>"+mounts["footers"][i]["rank"]+"</td>";
+      var td3="<td>"+mounts["footers"][i]["elev"]+"</td>";
+      var td4="<td>"+mounts["footers"][i]["prom"]+"</td>";
+      var td5="<td>"+mounts["footers"][i]["time"]+"</td>";
+      var td6="<td>"+mounts["footers"][i]["len"]+"</td>";
+      var td7="<td>"+mounts["footers"][i]["range"]+"</td></tr>";
+
+      $('#mytable').append(tr+td1+td2+td3+td4+td5+td6+td7); 
+    };
+
+    //this loop adds a unique id for every single row so the click function can grab the right element
+    //if this looks like madness it's because of a loop issue is javascript. see link:
+    //http://stackoverflow.com/questions/10777981/how-can-i-pass-an-incrementing-for-loop-variable-to-a-function-in-node-js
+    for(var i=0; i<mounts["footers"].length; i++)
+    {
+      (function(i2){$("#row-"+i2).click(function()
+    {
+      //adds scroll effect 
+      //http://www.sitepoint.com/introduction-jquery-scroll-based-animations/
+      fillpanelFromObject(mounts["footers"][i2]);
+      $('html, body').animate({
+        scrollTop: $("#panel2").offset().top
+      }, 400);
+    })})(i)
+    }
+
+    fillpanelFromObject(mounts["footers"][1]);
+
+  </script>
+  <div id="bottom">
+    <p style="text-align: center;">This has been CS50...Thanks!</p>
+  </div>
 </body>
 </html>
