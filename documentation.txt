@@ -1,0 +1,17 @@
+documentation.txt
+
+Goal:
+The goal of this website is to explore a small data set about the forty-eight 4,000 foot peaks in New Hampshire.  I built this website to improve upon another web resource that I regularly use for this particular purpose, but that has poor design and no flexibility in how to view the actual data.  
+
+Features:
+The 4,000 Footers website achieves its use goal via two separate ways to view the data.  The first view is a responsive, sortable table that allows users to identify those mountains and trails that have similar characteristics for planning particular hiking trips.  This table is on the "Find a footer" page. The top rows of this table toggles on click to sort in ascending or descending order.  The rows are shaded every other row for easy reading, and have mouse-over highlights for easier navigation.  If the user clicks any table row, the page will scroll to the bottom of the page to reveal a panel containing additional information about the mountain and hiking trail.
+
+The second view via which users can learn about the mountains is in the "Footer map" page.  This is an embedded interactive Google Maps view of the whole White Mountain National Forest.  It has a custom marker for every single peak that can be clicked interactively to expand an info window with more information.
+
+The map view and table view pages are 2 of 6 total pages on the site. Other features include links to hiking resources like the official AMC homepage and REI sites, an About Me page, and an opportunity to contact me via email on the Contacts page.
+
+Hosting:
+This site is hosted on Github and can be accessed at https://shanrob.github.io/homepage4.html.  I chose to host this site on github for easy access and organization, plus version control with Git for future additions. In the future, I plan to set up a redirect to a more appropriate and custom domain name. 
+
+Future plans:
+When planning a hike, it is important to have the appropriate information so as to be safe and prepared.  I hope that this website will provide that to its users. I definitely plan to add to it in the future. More information and data will eventually make this website more robust, however, for now, I believe it has the basic functionalitites to be useful.

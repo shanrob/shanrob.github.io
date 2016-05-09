@@ -1,0 +1,23 @@
+design.txt
+
+The main intention with my approach to this website was to utilize Bootrap, JavaScript and JQuery to create a straightforward design for my data set.
+
+Bootstrap:
+Bootstrap made it easy to set up my website with a modern design that is responsive and scalable.  It even works on my phone!  It also saved me a lot of time when it came to adding the navbar, buttons, tables, glyphs and styling.  The grid system that's included also helped me group elements and put things where I needed them to be.  In short, I became a big fan of Bootstrap over these past weeks!
+
+Data:
+The great thing about this project for me was that I already had most of the data collected and compiled before I even started the CS50. I love hiking and data and really wanted to be able to track my progress as I hiked all of the peaks, so I collected it in an Excel spreadsheet a long time ago. The only thing I had to collect for this project was the longitude and latitude of the mountains and the embed codes for the trail maps.  I chose to store all of this data in a few JSON arrays because in the scheme of things, it's not all that much data and was easy to manipulate and pull in to my JQuery and JavaScript code.
+
+Find a footer:
+This table is really the "meat" of my website.  I really wanted to make this table responsive and interactive in a way that could really be helpful to users to browse. To build the table, I constructed a for-loop which contained all the elements of the table as variables, and looped through the JSON array to append the rows with data.  This was a lot simpler than writing out the whole table statically, which would have taken forever!
+
+The primary feature I aimed for in the table is the sorting feature.  After a lot of consideration and research, I went with a JQuery plug-in called Tablesorter, developed by Christian Bach (http://tablesorter.com/docs/). This made it really easy to implement sorting, however didn't play nice with Bootstrap table styling, so I had to style it separately. 
+
+ Footer panel:
+ The next feature I really wanted to implement was the additional information panel.  Originally, I had a lot of different ideas for this as far as the interaction.  What I really wanted to do was to hide the info panel in between the rows of the table, and then have the rows expand upon click.  I tried this out, but it really confused the Tablesorter function I had already implemented (it wanted to sort the hidden rows too, separately), so I opted for a index-card style panel at the bottom.  After figuring out how to animate the scroll function to the bottom, I'm really happy with how it turned out!
+
+Footer map:
+This was the feature I wasn't sure if I'd be able to get to, timeline wise, but I'm really happy I did!  I built this page similarly to how the mashup pset was constructed, with the handy Google Maps JavaScript API.  I again used a loop to cycle through the data set to add my mountain markers (designed by me in AI) and info windows that populated with more details.  I did run in to a bit of a problem with this feature, however, because of an annoying part of JavaScript.  When I passed my variable into the loop and function, it only spit out the last element of my array.  This is because I was only passing in "one" thing over and over.  I researched how to fix this and was able to solve it with the help of StackOverflow: http://stackoverflow.com/questions/10777981/how-can-i-pass-an-incrementing-for-loop-variable-to-a-function-in-node-js.  I wasn't too happy about that!
+
+Future plans:
+For this project, I did a lot of research and learned that part of the reason that sites "out there" don't really have interactive maps for hiking trails is because the data doesn't really exist yet.  Google Maps has only just started mapping them, and they are largely incomplete and incorrect.  I learned that you can contribute to them if you submit some changes, but it's still a work in progress. However, I also did some reading about different types of geogrpahical data types like XML, TCX and GeoJSON.  I have a Garmin GPS watch that I've been taking with me on hikes that exports this data, and so I learned that I already have accurate data that I can use to accurately plot these trail maps!  So I definitely would like to do that in the future, espcially as I finish more hikes.
