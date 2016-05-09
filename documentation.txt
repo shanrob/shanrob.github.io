@@ -13,5 +13,8 @@ The map view and table view pages are 2 of 6 total pages on the site. Other feat
 Hosting:
 This site is hosted on Github and can be accessed at https://shanrob.github.io/homepage4.html.  I chose to host this site on github for easy access and organization, plus version control with Git for future additions. In the future, I plan to set up a redirect to a more appropriate and custom domain name. 
 
+Pitfalls/Questions:
+You may notice that each link in the info windows of the footer map links to one mountain.... Mt Bond.  I unfortunately ran out to time to gather all respective links for the mountains.  Also, I believe there are some unrecognized characters hiding in my data set that come through as question marks. 
+
 Future plans:
 When planning a hike, it is important to have the appropriate information so as to be safe and prepared.  I hope that this website will provide that to its users. I definitely plan to add to it in the future. More information and data will eventually make this website more robust, however, for now, I believe it has the basic functionalitites to be useful.
