@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>SheShe's Data Viz</title>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link rel="stylesheet" type="text/css" href="sequences.css"/>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>When & Where Device Data</h1>
+      <p>A Shan Viz Production</p>
+    </div>
+    <div id="main">
+      <div id="sequence"></div>
+      <div id="chart">
+        <div id="explanation" style="visibility: hidden;">
+          <span id="percentage"></span><br/>
+          of the sample
+        </div>
+      </div>
+    </div>
+    <div id="sidebar">
+      <input type="checkbox" id="togglelegend"> Legend<br/>
+      <div id="legend" style="visibility: hidden;"></div>
+    </div>
+    <script type="text/javascript" src="sequences.js"></script>
+    <script type="text/javascript">
+      // Hack to make this example display correctly in an iframe on bl.ocks.org
+      d3.select(self.frameElement).style("height", "700px");
+  </script>
+  </body>
+</html>
