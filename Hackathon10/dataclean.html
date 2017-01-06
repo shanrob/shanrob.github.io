@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Experimentation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+	<h1> hello world! </h1>
+<script>
+console.log("I work but I'm thinking...");
+
+d3.csv("tryingForNew.csv", function(reportData){
+	var result = [];
+
+	var tags = distinct(reportData, "tag");
+	var metaID = distinct(reportData, "MetaID");
+
+	console.log("I work but I'm thinking...");
+
+	for(var i = 0; i < tags.length; i++){
+
+		for(var j = 0; j < tags.length; j++){
+			var count = countMetdaIDsWithCorrTags(tags[i], tags[j]);
+			var obj = {source: tags[i], target: tags[j], value: count};
+			result.push(obj);
+		}
+	}
+
+	function countMetdaIDsWithCorrTags(tagi, tagj){
+		var count = 0;
+		for(var k=0; k < metaID.length; k++){
+			if(lookForMetaID(metaID[k], tagi) && lookForMetaID(metaID[k], tagj)){
+				count++;
+			}
+		}
+		return count;
+	};
+
+	function lookForMetaID(MetaID, tag){
+		for(var h = 0; h < reportData.length; h++){
+			if(reportData[h]["MetaID"] == MetaID && reportData[h]["tag"] == tag){
+				return true;
+			}
+		}
+		return false;
+	};
+
+	function distinct (dataset,field) {
+
+    	var dict = {};
+    	for (var i=0; i<dataset.length; i++) {
+			var v = dataset[i][field];
+				if (! (v in dict)) {
+	    			dict[v] = true;
+				}
+    		}
+    return Object.keys(dict);  
+	};
+
+	console.log("I work but I'm thinking...");
+	console.log(result);
+
+});
+
+
+
+
+
+
+</script>
+</body>
+</html>

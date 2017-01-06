@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hackathon Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+       .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 850px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #222222;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+    
+    .button {
+      display: block;
+      padding: 10px 15px;
+      width: 200px;
+      text-align: center;
+      margin: 20px auto 0;
+    }
+    
+    .icon {
+      width: 10%;
+      height: auto;
+    }
+
+    .sales-style {
+      background:#dfe5e8;
+      height: 100%;
+      color: #333;
+      text-align: left;
+      margin: 0px 30px 0px 0px;
+      padding: 30px;
+    }
+    
+    .sales-style h1 {
+    color: #003300;
+    margin-bottom: 0px;
+    }
+    
+    .sales-style .button {
+      background: #003d99;
+      color: #fff;
+    }
+    
+    .sales-style .button:hover {
+    background: transparent;
+    color: #003d99;
+    border: 2px solid #003d99;
+    text-decoration: none;  
+    padding: 8px 13px;  
+    }
+
+    .research-style {
+      background:#003300;
+      height: 100%;
+      color: white;
+      text-align: left;
+      margin: 0px 30px 0px 0px;
+      padding: 30px;
+    }
+    
+    .research-style h1 {
+      color: #eeff82;
+      margin-bottom: 0px;
+    }
+    
+    .research-style .button-container {
+      display: block;
+      margin: 0 0 0 10px;
+      text-align: center;
+    }
+    
+    .research-style .button {
+      background: #81cced;
+      color: #003d99;
+      margin: 10px 10px 0 0;
+      display: inline-block;
+    }
+    
+    .research-style .button:hover {
+    background: transparent;
+    color: #75f3f2;
+    border: 2px solid #75f3f2;
+    text-decoration: none;  
+    padding: 8px 13px;
+    }
+
+    .mid-style {
+      width: 20px;
+    }
+
+    img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="webpage.html">Home</a></li>
+        <li><a href="newtable.html">Search</a></li>
+        <li><a href="researchPage.html">Explore</a></li>
+        <li><a href="search_terms.html">Search trends</a></li>
+        <li><a href="aboutPage.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div style = "border: white 10px" class="col-sm-12 text-left">
+      <h1>Forrester's Taxonomy Tool</h1>
+      <p>This tool allows you to search our published content based on key words, view trends associated with key word searches and quickly access the content yielded by your search results. </p>
+      <hr>
+    </div>
+    <div class = "col-md-6">
+      <div class="sales-style">
+        <div class="icon"><img src="Hackathon/images/search-icon.svg"/></div>
+        <h1 style="padding: 10px">Search</h1>
+        <p style="padding: 10px">Use this function to search for reports by their associated tags and quickly access relevant content.</p>
+        <a class="button" a href="newtable.html">Search Now</a>
+      </div>
+    </div>
+    <div class = "col-md-6">
+      <div class="research-style">
+        <div class="icon"><img src="Hackathon/images/explore-icon.svg" /></div>
+        <h1 style="padding: 10px">Explore</h1>
+        <p style="padding: 10px">Use this function to view relationships and trends associated with key word searches and tags.</p>
+        <div class="button-container">
+          <a class="button" a href="researchPage.html">Explore relationships</a><a class="button" a href="search_terms.html">Explore trends</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+

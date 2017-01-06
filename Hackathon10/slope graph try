@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>college_try</title>
+    <script type='text/javascript' src="http://d3js.org/d3.v3.js"></script>
+    <style type='text/css'>
+        line.slope-line{
+            stroke:green
+        }
+        text.slope-label{
+            fill:red;
+            font: 20px Arial;
+        }
+    </style>
+</head>
+<body>
+<script type='text/javascript'>
+
+var data = {
+    "data":[[1, 2, 3, 4, 5], [3, 2, 5, 1, 4]],
+    "label":[['apple', 'banana', 'carrot', 'bacon', 'egg']]
+};
+
+var slopeGraph = d3.custom.slopegraph();
+d3.select('body')
+    .datum(data)
+    .call(slopeGraph);
+
+slopeGraph.width(500);
+d3.select('body')
+    .call(slopeGraph);
+
+    </script>
+</body>
+</html>

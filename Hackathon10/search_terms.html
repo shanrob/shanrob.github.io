@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search Terms Viz</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+
+<style>
+ .bar--positive {
+  fill: #003D99;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 100px;
+  padding: 8px;
+  margin-top: -20px;
+  font: 12px sans-serif;
+  background: #ddd;
+  pointer-events: none;
+  opacity: 1;
+  border-radius: 10px;
+}
+
+.bar--negative {
+  fill: #81CCED;
+}
+
+.axis text {
+  font: 12px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #FFFFFF ;
+  stroke-width: 5px;
+  shape-rendering: crispEdges;
+}
+
+.intro_text {
+  font-family: Arial, sans-serif;
+  color: gray;
+  margin-left: 10px;
+}
+h2 {
+  font-size: 35px;
+}
+
+.active {
+  opacity: .5;
+}
+
+
+
+
+</style>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="webpage.html">Home</a></li>
+        <li><a href="newtable.html">Search</a></li>
+        <li><a href="researchPage.html">Explore</a></li>
+        <li><a href="search_terms.html">Search trends</a></li>
+        <li><a href="aboutPage.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div style = "border: white 20px" class="col-sm-12 text-left">
+      <h1>Top 25 search terms: 90 day trend</h1>
+      <p>We visualized the 90 day trend value of the top 25 search terms below. To the left (light blue) are negative trend values, to the right (dark blue) are positive trend values. Hover for more detail</p>
+    </div>
+</div>
+
+ 
+
+<script>
+
+var margin = {top: 20, right: 30, bottom: 40, left: 300},
+    width = 1050 - margin.left - margin.right,
+    height = 850 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], 0.1);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickSize(0)
+    .tickPadding(6);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("search_terms.csv", type, function(error, data) {
+  x.domain(d3.extent(data, function(d) { return d.value; })).nice();
+  y.domain(data.map(function(d) { return d.name; }));
+
+var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .attr("display", "none");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", function(d) { return "bar bar--" + (d.value < 0 ? "negative" : "positive"); })
+      .attr("x", function(d) { 
+        if(d.value < 0){
+          return x(Math.min(0, d.value)) - 300;
+        }
+        return x(Math.min(0, d.value)); 
+      })
+      .attr("y", function(d) { return y(d.name); })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand())
+      .on("mouseover", function(d){mouseover(this, d);})
+      .on("mouseout", function(d){mouseout(this, d);});
+      //.append("text").text("Shan").attr("x", 500).attr("y", 500);
+
+//*********************************************
+svg.selectAll(".textShan")
+      .data(data)
+    .enter().append("text")
+      .attr("class", "textShan")
+      .attr("x", function(d) { 
+        if(d.value < 0){
+          return x(Math.min(0, d.value)) - 335;
+        }
+        return x(d.value) + 10; 
+      })
+      .attr("y", function(d) { return y(d.name) + y.rangeBand() - 2; })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand())
+      .text(function(d){ return d.value;});
+//******************************************************************
+
+
+  function mouseover(guy, d) {
+    d3.select(guy).classed("active", true)
+    console.log("mousey mousey!")
+    return div.style("display", "inline")
+      .html(toolTipText(d))
+      .style("left", (d3.event.pageX + 20) + "px")
+      .style("top", (d3.event.pageY + 20) + "px");
+    }
+
+ function toolTipText(d){
+    return "Search term: " + d.name + "<br>" + "90 day trend: " + d.value ;
+  }
+
+  function mouseout(guy) {
+    d3.select(guy).classed("active", false)
+    d3.selectAll("text").classed("active", false);
+    div.style("display", "none");;
+    //div.style("display", "none");
+  }
+
+  /*svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);*/
+
+  var g = svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + x(0) + ",0)")
+      .call(yAxis);
+
+  g.selectAll("text").style("text-anchor","middle").attr("transform","translate("+(x(0)-495)+",0)");
+});
+
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

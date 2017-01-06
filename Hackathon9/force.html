@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<head>
+    <title>A day in the life @CDP!</title>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <meta charset="utf-8">
+</head>
+<style>
+
+.label {
+  color:  #cccccc;
+  font-size: 10px;
+  font-family: Arial;
+}
+
+.node {
+  stroke: #cccccc;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke-opacity: .6;
+}
+
+.node:hover text {
+  display: none;
+  color: #cccccc;
+  font: 10px sans-serif;
+}
+
+.node:hover circle {
+  fill: #000;
+}
+
+.node:hover text {
+  fill: #000;
+}
+
+.cell {
+  fill: none;
+  pointer-events:all;
+}
+
+#background {
+  background-color: #333333;
+}
+
+#title {
+  font-size: 20px;
+  font-family: Helvetica, sans-serif;
+  color: #dddddd;
+  text-align: left;
+  margin-bottom: -5px;
+  padding-bottom: -5px;
+  margin-left: 5px;
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+#subtitle {
+  font-family: Helvetica, sans-serif;
+  font-size: 50px;
+  color: #ffffff;
+  text-align: left;
+  margin-top: -5px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  font-weight: 400;
+}
+
+#para {
+  font-family: Helvetica, sans-serif;
+  font-size: 17px;
+  color: #aaaaaa;
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}
+
+.chatterlog{
+    background: #333333;
+    padding: 0px;
+}
+
+.chatterpost{
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-color: #666666;
+    border-width: 1px;
+    background: #333333;
+    padding: 25px 15px 15px 60px; 
+    margin-bottom: 20px;
+    background-image: url(pat-01.png);
+    background-position:10px center;
+    background-repeat:no-repeat;
+    font-size: 12px;
+    color: #ffffff;
+}
+.chattercomment{
+    border-radius: 5px;
+    background: #333333;
+    margin: 5px 5px 5px 30px;
+    padding: 10px;
+    border: #3c87ef;
+    border-width: 5px;
+    border-left-style: solid;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #cccccc;
+}
+
+
+#w3-containerChart{
+  float: left;
+  height:750px;
+  padding: none;
+  margin: none;
+}
+
+.td{
+  height:750px;
+}
+
+.name {
+  font-weight: 600;
+  color:#333333;
+}
+
+.number {
+  text-align: right;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: left;			
+    padding: 10px;			
+    font: 16px sans-serif, Arial;		
+    background: #dddddd;	
+    border: 0px;		
+    border-radius: 3px;			
+    pointer-events: none;			
+}
+</style>
+
+<body id="background">
+  <div id="nodedetails" class="tooltip"></div>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="d3.legend.js"></script>
+
+<div class="w3-container">
+
+  <table style="width:100%">
+    <tr>
+      <th>
+        <p id="title">VISUALIZING FORRESTER LIFE</p>
+        <p id="subtitle">DVWG Chatter Data</p>
+        <p id="para"> Use the viz below to see how 'Data Viz Chatter Group' members
+          interact with each other! <br>Drag nodes to move the viz around, double click to isolate individual members.</p>
+        <img style = "align:left; padding-bottom = 20px; padding-top:10px;"src="legend.png" align = "left">
+      </th>
+      <th>
+        <img style= "align:top; float: right; padding-right:50px; padding-top: 10px;" src="gwar.png">
+      <th>
+    <tr>
+      <td style="margin:none; padding: none;"><div id="w3-containerChart"></div></td>
+      <td><div id="chatterlog" class="chatterlog" style="overflow-y:scroll; padding-right: 40px; height: 750px; width: 475px;" > </div></td>
+    </tr>
+  </table> 
+</div>  
+
+<script>
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+}
+
+var width = 1000,
+    height = 750;
+
+var heart_start_r = 4,
+    heart_end_r = 7;
+
+var color = d3.scale.category10();
+
+var nodes = [],
+    links = [],
+    labels = [];
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .charge(-250)
+    //.linkStrength(function(d) { return d.weight+1; })
+    //.linkDistance(function(d) {return 1/((d.weight+1)*100);})
+    .linkDistance(150)
+    .size([width, height])
+    .on("tick", tick);
+
+var svg = d3.select("#w3-containerChart").append("svg")
+    .attr("width", width)
+    .attr("height", height + "px");
+
+var node = svg.selectAll(".node"),
+    link = svg.selectAll(".link"),
+    label = svg.selectAll(".label");
+
+var all_links = [];
+
+var live_nodes = [];
+
+var div = d3.select("#nodedetails")
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
+var placeholder = "Chatter comments removed for proprietary reasons"
+
+//Create an array logging what is connected to what
+var linkedByIndex = {};
+
+var postsMade = [],
+	likesGiven = [],
+	likesReceived = [],
+	commentsMade = [],
+	commentsReceived = [];
+
+//Toggle stores whether the highlighting is on
+var toggle = 0;
+
+// 1. Add three nodes and three links.
+setTimeout(function() {
+
+    d3.json("chatterRiccardo.json", function(error, graph) {
+	if (error) return console.warn(error);
+	
+	postsMade = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	likesGiven = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	likesReceived = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	commentsMade = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	commentsReceived = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+
+	Array.prototype.push.apply(nodes,graph.nodes);
+	all_links = graph.links;
+	//Array.prototype.push.apply(links,graph.links);
+	live_nodes.push(nodes[0]);
+	start();
+    });
+}, 0);
+
+
+setInterval(function(){
+    if(all_links.length > 0){
+	var newlink = all_links.shift();
+
+	var findy = [];
+	for (var i = 0; i < links.length; i++) {
+	    var x = links[i];
+	    if(x.source.id == newlink.source && x.target.id == newlink.target){
+		findy.push(i);
+	    }
+	}
+
+	if(findy.length > 0){
+	    //increase the weight
+	    links[findy[0]].weight = links[findy[0]].weight + newlink.weight;
+	}else{
+	    links.push(newlink);
+	}
+
+	//add a heart beat to live nodes
+	if(live_nodes.indexOf(newlink.source.name)==-1){
+	    live_nodes.push(newlink.source);
+	}
+	if(live_nodes.indexOf(newlink.target.name)==-1){
+	    live_nodes.push(newlink.target);
+	}
+
+	//append the chatter to the log div
+	if(newlink.text){
+	    var divclass = 'chattercomment';
+	    if(newlink.source == newlink.target){
+		divclass = 'chatterpost';
+	    }
+	    d3.select("#chatterlog").insert("div",":first-child").attr('class',divclass).html(newlink.text);
+	}
+	
+	startHeartBeat(node.filter(function(d){return live_nodes.indexOf(d.id) != -1;}));
+
+	for (i = 0; i < nodes.length; i++) {
+	    linkedByIndex[i + "," + i] = 1;
+	};
+
+	postsMade = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	likesGiven = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	likesReceived = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	commentsMade = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+	commentsReceived = Array.apply(null, Array(nodes.length)).map(Number.prototype.valueOf,0);
+
+	links.forEach(function (d) {
+	    linkedByIndex[d.source.index + "," + d.target.index] = 1;
+	    if(d.source == d.target){
+		postsMade[d.source.index]++;
+	    }else{
+		if(d.weight==1){
+		    //like
+		    likesGiven[d.source.index]++;
+		    likesReceived[d.target.index]++;
+		}else if(d.weight==2){
+		    //comment
+		    commentsMade[d.source.index]++;
+		    commentsReceived[d.target.index]++;
+		}
+	    }
+	});	
+
+	start();
+    }
+}, 60);
+
+
+function start() {
+  link = link.data(force.links());
+  link.enter()
+	.append("line", ".node")
+	.attr("class", "link")
+        .attr("stroke", function(d){
+	    if (d.weight==1){
+        /*blue*/
+        return "#3c87ef";
+	    }else if (d.weight==2){
+        /*pink*/
+        return "#d1005d";
+      }else if(d.weight==0){
+        /*green*/
+        return "#b8fa2d";
+      }
+	    });
+  link.exit().remove();
+
+  node = node.data(force.nodes(), function(d) { return d.name;});
+  node.enter()
+	.append("circle")
+	.attr("r", 4)
+	.attr("name", function(d){return d.name;})
+  .call(force.drag)
+	.style("fill","#ccc")
+        .on("mouseover", function(d, i) {
+            div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            div.html("<p class = 'name'>" + d.name.toUpperCase() + "</p>" + "Posts: " + "<b>" + postsMade[i] + "</b>" + "<br/>Likes Given: " + "<b>" + likesGiven[i] + "</b>" + "<br/>Likes Recieved: " + "<b>" + likesReceived[i] + "</b><br/>Comments Made: " + "<b>" + commentsMade[i] + "</b><br/>Comments Recieved: " + "<b>" + commentsReceived[i])
+                .style("left", (d3.event.pageX + 15) + "px")		
+                .style("top", (d3.event.pageY - 15) + "px");	
+            })					
+        .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        })
+	.on('dblclick', connectedNodes);
+  node.exit().remove();
+
+  force.start();
+}
+
+function tick() {
+  node.attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  label
+        .attr("x", function(d) { return d.x + 8; })
+        .attr("y", function(d) { return d.y; });
+
+  /*d3.selectAll(".node").moveToFront();*/
+  node.moveToFront();
+}
+
+//This function looks up whether a pair are neighbours  
+function neighboring(a, b) {
+    return linkedByIndex[a.index + "," + b.index];
+}
+
+function connectedNodes() {
+
+    if (toggle == 0) {
+        //Reduce the opacity of all but the neighbouring nodes
+        d = d3.select(this).node().__data__;
+        node.style("opacity", function (o) {
+            return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+        });
+        
+        link.style("opacity", function (o) {
+            return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+        });
+        
+        //Reduce the op
+        
+        toggle = 1;
+    } else {
+        //Put them back to opacity=1
+        node.style("opacity", 1);
+        link.style("opacity", 1);
+        toggle = 0;
+    }
+}
+
+function startHeartBeat(selection){
+    selection.transition()
+	.style("fill", function(d){
+    if (d.weight == 1){
+      /*blue 3c87ef*/
+      return "#b8fa2d";
+    }else if (d.weight == 2){
+      /*pink d1005d*/
+      return "#b8fa2d";
+    }else{
+      /*green*/
+      return "#b8fa2d";
+    }
+  })
+        .attr("r", heart_end_r)
+        .each("end", heartBeat);
+}
+
+function heartBeat(){
+    if(d3.select(this).attr("r")== heart_start_r){
+        d3.select(this).transition()
+            .duration(500)
+            .attr("r",  heart_end_r)
+            .each("end", heartBeat);
+    }
+    else{
+        d3.select(this).transition()
+            .duration(200)
+            .attr("r",  heart_start_r)
+            .each("end", heartBeat);
+    }    
+}
+
+</script>
+</div>
+</body>
+</html>

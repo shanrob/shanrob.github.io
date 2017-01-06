@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adjacency Matrix</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 850px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #222222;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+
+    .sales-style {
+      background:#3C87EF ;
+      height: 100%;
+      color: white;
+      text-align: left;
+      border: border: 0 5px 0 5px;
+      border-color: white;
+    }
+
+    .research-style {
+      background:#003D99;
+      height: 100%;
+      color: white;
+      text-align: left;
+      border: 0 5px 0 5px;
+      border-color: white;
+    }
+
+    .mid-style {
+      width: 20px;
+    }
+
+    img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .butt {
+    float: left;
+    vertical-align: left;
+    padding-left: 20px;
+  }
+
+  text {
+    font-size: 10px;
+    color: black;
+    font-family: sans-serif;;
+  }
+
+
+
+@import url(../style.css?aea6f0a);
+
+.background {
+  fill: #eee;
+}
+
+line {
+  stroke: #fff;
+}
+
+text.active {
+  fill: red;
+}
+
+.intro_text {
+  font-family: Arial, sans-serif;
+  color: gray;
+  margin-left: 10px;
+}
+h2 {
+  font-size: 35px;
+}
+
+#footer {
+   position:absolute;
+   bottom:-200;
+   width:100%;  /* Height of the footer */
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 100px;
+  padding: 8px;
+  margin-top: -20px;
+  font: 12px sans-serif;
+  background: #ddd;
+  pointer-events: none;
+  opacity: 1;
+  border-radius: 10px;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="webpage.html">Home</a></li>
+        <li><a href="newtable.html">Search</a></li>
+        <li><a href="researchPage.html">Explore</a></li>
+        <li><a href="search_terms.html">Search trends</a></li>
+        <li><a href="aboutPage.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">
+    <div style = "border: white 20px" class="col-sm-12 text-left">
+      <h1>Forrester Taxonomy Adjacency Matrix</h1>
+      <p>The top 100* tags in the Forrester Report Taxonomy are visualized below. 
+    A colored square in the matrix indicates that the two selected tags share at least one report. The opacity
+    of the colored square references the <i>number</i> of reports those tags share.  The darker the square, the more
+    reports shared between the two selected tags.</p>
+    <p>Hover over the cells for more information</p>
+    <p>
+    Filter by:
+    <select id="order" style="margin-left: 5px; width: 200px">
+      <option value="name">by Name</option>
+      <option value="count">by Frequency</option>
+      <option value="group">by Cluster</option>
+    </select>
+  </p>
+  </div>
+</div>
+      
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<div>
+<script>
+
+console.log("I work but I'm thinking...");
+
+d3.csv("tryingForNew_old.csv", function(reportData){
+  // count the number of co-occurences of values of tag_field in rows
+// with the same value of metaid_field
+
+
+console.log("Starting crunching...");
+
+
+function co_occurrences (dataset, tag_field, metaid_field) {
+
+    var tag1, tag2;
+    var tag1_dict, tag2_dict;
+    var metaids;
+
+    // function to get all the metaids with a given tag
+  function get_metaids (tag) {
+    var dict = {};
+    for (var k=0; k<dataset.length; k++) {
+      if (dataset[k][tag_field] === tag && !(dataset[k][metaid_field] in dict)) {
+        dict[dataset[k][metaid_field]] = true;
+      }
+   }
+   return dict;
+  }
+  
+  console.log("Detecting wibbly wobbly bits...");
+
+    // build a dictionary of dictionaries to count the # of documents
+    // for a given pair of tags
+    tag1_dict = {};
+
+    for (var i=0; i<dataset.length; i++) {
+      tag1 = dataset[i][tag_field];
+      // get all distinct metaids tagged with tag1
+    if (! (tag1 in tag1_dict)) {
+      metaids = get_metaids(tag1);
+      tag2_dict = {};
+      for (var j=0; j<dataset.length; j++) {
+        tag2 = dataset[j][tag_field];
+        if (dataset[j][metaid_field] in metaids && tag2 !== tag1) {
+            if (tag2 in tag2_dict) {
+              tag2_dict[tag2]++;
+            } else {
+              tag2_dict[tag2] = 1;
+            }
+          }
+        }
+        tag1_dict[tag1] = tag2_dict;
+      }
+    }
+
+    var result = [];
+    Object.keys(tag1_dict).forEach(function(tag1) {
+    Object.keys(tag1_dict[tag1]).forEach(function(tag2) {
+        result.push({source:tag1,target:tag2,value:tag1_dict[tag1][tag2]});
+      });
+    });
+
+    return result;
+  }
+
+  //construct link data with co_occurrences function
+  var link_data = co_occurrences(reportData,"tag","MetaID");
+  console.log("We did it!");
+  //console.log(link_data);
+
+  //find all tags in the dataset and give them a group
+  function make_nodes (dataset,tag_field, group_field) {
+
+    dict = {};
+    for (var i=0; i<dataset.length; i++) {
+      var tag = dataset[i][tag_field];
+      var group = dataset[i][group_field];
+      if (!(tag in dict)) {
+        dict[tag] = group;
+      }
+    }
+    return Object.keys(dict).map(function(tag) { return {name:tag,group: +dict[tag]}; });
+  }
+
+  function transform_links (links,nodes) {
+    return links.map(function(r) {
+    var source = r.source;
+    var target = r.target;
+    return {source: index(source,nodes), target: index(target,nodes), value:r.value};
+  });
+}
+
+
+  function index (tag,nodes) {
+    for (var i=0; i<nodes.length; i++) {
+      if (nodes[i].name === tag) {
+        return i;
+      }
+    }
+    // problem: cannot find the tag
+    return false;
+  }
+
+  var nodes = make_nodes(reportData, "tag", "group");
+  var links = transform_links(link_data, nodes);
+
+
+
+  /*console.log(nodes[2]);
+  console.log(nodes[75]);
+  console.log(nodes[99]);
+
+  console.log(links[35]);
+  console.log(links[42]);
+  console.log(links[51]);*/
+
+  console.log(links);
+
+
+//});
+
+
+//HERE WE GOOOOOOOOOOOOOOOOOOOOOOOO /////////////////////////////////////////////////////
+
+
+var margin = {top: 200, right: 0, bottom: 30, left: 200},
+    width = 1000,
+    height = 1000;
+
+/*var color = d3.scale.ordinal()
+  .domain(group)
+  .range(["#003D99", "#3C87EF" , "#81CCED", "#272822", "#B289C0", "#4DAAD7", "#003B5C"]);*/
+
+  var f_colors = [
+  ["#003D99"], 
+  ["#3C87EF"], 
+  ["#81CCED"], 
+  ["#272822"], 
+  ["#B289C0"], 
+  ["#4DAAD7"], 
+  ["#003B5C"]
+];
+
+var x = d3.scale.ordinal().rangeBands([0, width]),
+    z = d3.scale.linear().domain([0, 30]).clamp(true),
+    //c = d3.scale.category20b().domain(d3.range(10));
+    c = d3.scale.ordinal()
+      .range(["#467F1A", "#669933", "#77AA41", "#89BB4B", "#003D99", "#3399CC", "#81CCED", "#75F3F2"]);
+
+//console.log();
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("margin-left", 50 + "px")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//d3.json("miserables.json", function(miserables) {
+  var matrix = []
+      n = nodes.length;
+
+  // Compute index per node. 
+  nodes.forEach(function(node, i) {
+    node.index = i;
+    node.count = 0;
+    matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
+  });
+
+  // Convert links to matrix; count character occurrences.
+  links.forEach(function(links) {
+    matrix[links.source][links.target].z += links.value;
+    matrix[links.target][links.source].z += links.value;
+    matrix[links.source][links.source].z += links.value;
+    matrix[links.target][links.target].z += links.value;
+    nodes[links.source].count += links.value;
+    nodes[links.target].count += links.value;
+  });
+
+  // Precompute the orders.
+  var orders = {
+    name: d3.range(n).sort(function(a, b) { return d3.ascending(nodes[a].name, nodes[b].name); }),
+    count: d3.range(n).sort(function(a, b) { return nodes[b].count - nodes[a].count; }),
+    group: d3.range(n).sort(function(a, b) { return nodes[b].group - nodes[a].group; })
+  };
+
+  console.log(nodes[5].group);
+
+
+
+  // The default sort order.
+  x.domain(orders.name);
+
+  svg.append("rect")
+      .attr("class", "background")
+      .attr("width", width)
+      .attr("height", height)
+      //.attr("data-legend",function(d) { return c.group});
+
+  var row = svg.selectAll(".row")
+      .data(matrix)
+    .enter().append("g")
+      .attr("class", "row")
+      .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
+      .each(row);
+
+  row.append("line")
+      .attr("x2", width);
+
+  row.append("text")
+      .attr("x", -6)
+      .attr("y", x.rangeBand() / 2)
+      .attr("dy", ".32em")
+      .attr("text-anchor", "end")
+      .text(function(d, i) { return nodes[i].name; });
+
+  var column = svg.selectAll(".column")
+      .data(matrix)
+    .enter().append("g")
+      .attr("class", "column")
+      .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
+
+  column.append("line")
+      .attr("x1", -width);
+
+  column.append("text")
+      .attr("x", 6)
+      .attr("y", x.rangeBand() / 2)
+      .attr("dy", ".32em")
+      .attr("text-anchor", "start")
+      .text(function(d, i) { return nodes[i].name; });
+
+  function row(row) {
+    var cell = d3.select(this).selectAll(".cell")
+        .data(row.filter(function(d) { return d.z; }))
+      .enter().append("rect")
+        .attr("class", "cell")
+        .attr("x", function(d) { return x(d.x); })
+        .attr("width", x.rangeBand())
+        .attr("height", x.rangeBand())
+        .style("fill-opacity", function(d) { return z(d.z); })
+        .style("fill", function(d) { return nodes[d.x].group == nodes[d.y].group ? c(nodes[d.x].group) : null; })
+        .on("mouseover", function(d){mouseover(d);})
+        .on("mouseout", mouseout);
+  }
+
+  /*legend = svg.append("g")
+    .attr("class","legend")
+    .attr("transform","translate(50,30)")
+    .style("font-size","12px")
+    .call(d3.legend);*/
+
+
+
+console.log(matrix);
+
+  var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .attr("display", "none");
+
+  function toolTipText(d){
+    return "Tag: " + nodes[d.x].name + "<br>" +" v.s. " + "<br>" + nodes[d.y].name + "<br><br>"
+    + "Reports shared: " + d.z;
+  }
+
+  function mouseover(p) {
+    d3.selectAll(".row text").classed("active", function(d, i) { return i == p.y; });
+    d3.selectAll(".column text").classed("active", function(d, i) { return i == p.x; });
+    div.style("display", "inline")
+      .html(toolTipText(p))
+      .style("left", (d3.event.pageX + 20) + "px")
+      .style("top", (d3.event.pageY) + "px")
+  }
+
+  function mouseout() {
+    d3.selectAll("text").classed("active", false);
+    div.style("display", "none");
+  }
+
+  d3.select("#order").on("change", function() {
+    clearTimeout(timeout);
+    order(this.value);
+  });
+
+  function order(value) {
+    x.domain(orders[value]);
+
+    var t = svg.transition().duration(2500);
+
+    t.selectAll(".row")
+        .delay(function(d, i) { return x(i) * 4; })
+        .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
+      .selectAll(".cell")
+        .delay(function(d) { return x(d.x) * 4; })
+        .attr("x", function(d) { return x(d.x); });
+
+    t.selectAll(".column")
+        .delay(function(d, i) { return x(i) * 4; })
+        .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
+  }
+
+  var timeout = setTimeout(function() {
+    order("group");
+    d3.select("#order").property("selectedIndex", 2).node();
+    //.focus();
+  }, 5000);
+});
+
+</script>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
+

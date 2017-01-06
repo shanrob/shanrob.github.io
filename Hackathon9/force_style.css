@@ -1,0 +1,15 @@
+#background {
+	background-color: #333333;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+#title {
+	font-family: Helvetica, sans-serif;
+	color: #dddddd;
+	margin-bottom: 0px;
+}
+
+#container {
+	margin-top: 100px;
+}

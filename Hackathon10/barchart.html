@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bar chart</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+  </head>
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+
+
+</style>
+
+<body>
+  <div id="bar">
+  </div>
+<script>
+
+var dataSet = [
+  {"name":"shan", "value":10},
+  {"name":"fran", "value":20},
+  {"name":"dan", "value":30},
+  {"name":"stan", "value":40},
+  {"name":"lan", "value":50}
+];
+
+console.log(dataSet);
+
+var height = 500;
+var width = 300;
+
+var chart = d3.select("#bar")
+.append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+var x = d3.scale.linear()
+  .range([0, width])
+  .domain([0, d3.max(dataSet, function(d) { return d.value;})]);
+
+var y = d3.scale.ordinal()
+  .domain(dataSet.map(function(d) { return d.name; }))
+  .rangePoints([0, 125]);
+
+var bar = chart.selectAll("g")
+  .data(dataSet)
+.enter().append("g")
+  .attr("transform", "translate(20,20)");
+
+bar.append("rect")
+  .attr("y", function(d) {return y(d.name) ;})
+  .attr("x", 50)
+  .attr("height", 20)
+  .attr("width", function(d) {return x(d.value);})
+  .attr("fill", "red");
+
+  </script>
+
+
+
+
+</body>
