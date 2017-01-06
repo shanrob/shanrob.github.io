@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>morePractice</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+  </head>
+  <style>
+    path {
+      stroke:#467E3B;
+      stroke-width: 4;
+      fill: none;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
+    .tick {
+      font-family: sans-serif;
+      font-size: 13px;
+    }
+
+    .tick line{
+    opacity: 0.2;
+    }
+
+    .arc text {
+    font-family:sans-serif;
+    text-anchor: middle;
+    }
+
+    .arc path {
+      stroke: #fff;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  #theTitle {
+    font-family: sans-serif;
+    font-size: 25px;
+    padding-top: 15px;
+    padding-left: 10px;
+  }
+
+  </style>
+
+  <body>
+    <div id="theTitle">Practice Viz</div>
+    <div id="chart">
+    </div>
+
+    <script>
+
+    //---------------------------------   HURRAY 4 DATAZ  -------------------------------------
+
+    //data set for line chart
+    var dataSet = [
+      {year: 2011, percent: 10},
+      {year: 2012, percent: 40},
+      {year: 2013, percent: 46},
+      {year: 2014, percent: 59},
+      {year: 2015, percent: 63},
+      {year: 2016, percent: 79},
+      {year: 2017, percent: 85},
+      {year: 2018, percent: 88},
+      {year: 2019, percent: 97},
+      {year: 2020, percent: 100},
+    ];
+
+    //data set for pie
+    var dataSetPie = [
+    [
+      {"label":"yes", "value": 54, "img": "compare.png"},
+      {"label":"no", "value": 46, "img": "compare.png"}
+    ],
+    [
+      {"label":"yes", "value": 30, "img": "search.png"},
+      {"label":"no", "value":70, "img": "search.png"}
+    ],
+    [
+      {"label":"yes", "value": 47, "img": "rate.png"},
+      {"label":"no", "value": 53, "img": "rate.png"}
+    ]
+    ];
+
+    //----------------------------- CHARTZ, FOOL! --------------------------------
+
+    //set dimensions of the svg and... chart, in this case?
+    var margin = {top: 50, right: 50, bottom: 30, left: 50},
+        width = 450; //width of whole canvas
+        height = 900; //height of whole canvas
+        lineChartHeight = 400;
+        lineChartWidth = 400;
+
+    var color = d3.scale.ordinal()
+      .domain(["yes", "no"])
+      .range(["#467E3B","#DADADA"]);
+
+    var radius = Math.min(150, 150) / 2;
+
+    //append svg to the page
+    var my_svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+
+    //declare parts of pie - arc
+    var arc = d3.svg.arc()
+      .outerRadius(radius - 5)
+      .innerRadius(radius - 20);
+
+    var pie = d3.layout.pie()
+      .sort(null)
+      .value(function(d) { return d.value; });
+
+    //declared a variable that formats the year, to later pass in d.year  
+    var parseDate = d3.time.format("%Y").parse;
+
+    //declare where x and y axes start...
+    //x starts 50 in, goes for 400 px across
+    //y starts at 400px down, comes up until 50px down
+    var x = d3.time.scale().range([50, 400]);
+    var y = d3.scale.linear().range([400, 50]);
+
+    //declare the line, what the points are, value pairs, (x,y) = (year, percent)
+    //notice how we passed d.year into parseDate... parseDate (aka d3.time.format) needs a string!
+    var valueline = d3.svg.line()
+      .x(function(d) { return x(parseDate(d.year.toString()));})
+      .y(function(d) { return y(d.percent);})
+
+    //declare the domain for your axes - what the output is
+    //d3.extent returns an array, max and min at the same time. parseDate w/ string year again!
+    //could technically do the same thing for y as x, but same idea, array min to max
+    x.domain(d3.extent(dataSet, function(d) {return parseDate(d.year.toString());}));
+    y.domain([0 , d3.max(dataSet, function(d) {return d.percent;})]);
+
+    //innerTick = how far the grid lines go "up" the chart (hence negative value)
+    //tickPadding = how far away the numbers are from the x axis line
+    var xAxis = d3.svg.axis().scale(x)
+      .orient("bottom").ticks(10)
+      .innerTickSize(-(lineChartWidth - margin.top))
+      .tickPadding(10);
+
+    var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(10)
+      .innerTickSize(-(lineChartHeight - margin.right))
+      .tickPadding(10)
+      .tickFormat(function(d) { return parseInt(d, 10) + "%"; });
+
+
+function pieBuilder(numPy, whichSvg, posX, posY) {
+
+  //console.log(pie(dataSetPie[numPy]));
+
+   var g = whichSvg.append("g")
+      .selectAll(".arc")
+      .data(pie(dataSetPie[numPy]))
+    .enter().append("g")
+      .attr("class", "arc")
+      .attr("transform", "translate(" + posX + "," +  posY + ")");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.value); });
+
+    g.append("text")
+      .attr({
+        "text-anchor": "middle",
+      }).style({'fill': '#467E3B', 'font-size': '30px'}).text(dataSetPie[numPy][0].value + "%")
+      .attr("transform", "translate(0,115)");
+
+    g.append("image")
+      .attr("width", 80)
+      .attr("height", 80)
+      .attr("xlink:href", dataSetPie[numPy][0].img)
+      .attr("transform", "translate(-40,-40)");
+
+    function type(d) {
+      d.value = +d.value;
+      return d;
+    };
+  };
+
+    //add the line - translate to where you want it
+  my_svg.append("path")
+      .attr("class", "line")
+      .attr("d", valueline(dataSet))
+      .attr("transform", "translate(0, 0)");
+
+      //add the x axis - translate to where you want it
+  my_svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + lineChartHeight + ")")
+        .call(xAxis);
+
+      //add the y axis - translate to where you want it
+  my_svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .attr("transform", "translate(" + margin.right + ", 0)");
+
+
+function multiPie(){
+  var posX = 80;
+  var posY = 550;
+
+  for(var i = 0; i<3; i++){
+      pieBuilder(i, my_svg, posX, posY);
+      posX = posX + 150;
+    };
+  };
+
+multiPie();
+
+    </script>
+	</body>
+</html>
+
+
