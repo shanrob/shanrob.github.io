@@ -1,24 +1,32 @@
 
+console.log("Generating the scatter plot/projection...");
 
+// grab the dimensions of the div we want
 var canvasW = $("#scatter").width();
 var canvasH = $("#scatter").height();
 
+// setting up dimensions for the scatter plot
 var margin = {top:10, right:10, bottom: 20, left:20},
 	width = canvasW - margin.left - margin.right;
 	height = canvasH - margin.top - margin.bottom;
 
+// ranges for the x and y axes on the screen
 var x = d3.scaleLinear()
 			.range([0, width-40]);
 
 var y = d3.scaleLinear()
 			.range([height-30, 0]);
 
+// domains for the input from the data
+// just using t1 and t2 as placeholders for x and y right now
 x.domain(d3.extent(dummy, function(d) { return +(d.t1)}));
 y.domain(d3.extent(dummy, function(d) { return +(d.t2)}));
 
+//instantiate the axes for x and y
 var xAxis = d3.axisBottom(x);
 var yAxis = d3.axisLeft(y);
 
+// create an svg for the scatter plot
 var svg = d3.select("#scatter")
 			.append("svg")
 				.attr("width", width)
@@ -28,6 +36,7 @@ var svg = d3.select("#scatter")
 				.append("g")
 					.attr("transform", "translate(" + (margin.left+10) + ", " + margin.top + ")");
 
+	// draw a point for each data point
 	svg.selectAll("circle")
 			.data(dummy)
 			.enter()
@@ -43,9 +52,11 @@ var svg = d3.select("#scatter")
 					return (y(+(d.t2)))
 				})
 				.style("fill", "gray")
-				.on("mouseover", function(d) {
+				.on("mouseover", function(d) {   // mouseover effect to highlight
 					d3.select(this).style("fill", "blue")
 									.style("r", 7);
+
+					// mouseover effect to highlight the rects in the barcode charts
 					var currid = this.id;
 					d3.selectAll("rect").style("fill", function(d) {
 						if (this.id == currid) {
@@ -65,6 +76,9 @@ var svg = d3.select("#scatter")
 						return colorUp(d);
 					})
 				})
+
+
+//I commented out these axes since it'll eventually be a projection, but keeping for now
 
 	// svg.append("g")
 	// 	.attr("class", "xaxis")
@@ -88,6 +102,10 @@ var svg = d3.select("#scatter")
 	//       .attr("y", 0)
 	//       .attr("dy", ".71em")
 	//       .style("text-anchor", "end")
+
+
+// update function. Anytime a change is made the data, the vis will get redrawn
+// as long as you give it the updated data.
 
 function updateScatter(data) {
 

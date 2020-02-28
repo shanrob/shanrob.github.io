@@ -1,9 +1,11 @@
 
-console.log("tabs!");
+// This is just a js file to enable the interactivity of the tabs at the bottom. I don't think 
+// you'll need to mess with this, even if you want to generate the conent for the tabs themselves.
+
+console.log("Building predicate tabs...");
 
 
-
-function openPage(id, elem, color) {
+function showTab(id, elem, color) {
 	
 	var i, tabcontent, tablinks;
 

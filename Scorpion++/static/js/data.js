@@ -1,4 +1,8 @@
 
+// This is just a JSON object in a js file. I generated a bunch of random numbers and target
+// variables in Excel and used one of the many online "Excel to JSON" converters.
+// "dummy" for dummy data
+
 var dummy =  [
         {
             "readings": "r1",
