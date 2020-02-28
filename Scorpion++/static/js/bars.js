@@ -1,5 +1,5 @@
 
-console.log("Generating the line charts...");
+console.log("Generating the barcode charts...");
 
 // This part just sets up the slider, no need to mess with this I don't think
 var stdSlider = document.getElementById('controls');
