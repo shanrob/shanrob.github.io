@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+    <script src="js/d3.v4.min.js"></script>
+    <script src="js/topojson.v1.min.js"></script>
+<!--     <link rel="stylesheet" href="drought.css"> -->
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+</head>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    #nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        vertical-align: center;
+        width: 100%;
+        height: 6%;
+        background-color: #5c5c5c;
+        box-shadow: 2px 2px 5px #888888;
+        padding-bottom: 2px;
+    }
+
+    #container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        vertical-align: center;
+        width: 100%;
+        height: 94%;
+    }
+
+    #control {
+        margin-top:4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: left;
+        width: 23%;
+        height: 100%;
+        background-color: white;
+        box-shadow: 4px 12px 10px #888888;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #buffer {
+        display: flex;
+        flex-direction: column;
+        padding-left: 3%;
+        width: 100%;
+        height: 35%;
+    }
+
+
+    ul {
+        list-style: none;
+    }
+
+    ul li {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        margin-left:-10px;
+        height: 25px;
+    }
+
+    input[type=checkbox] {
+        width: 20px;
+        height: 20px;
+    }
+
+    #drop-down {
+        width: 75%;
+        height: 30px;
+        border-radius: 5px;
+        margin-left: 15%;
+    }
+
+    button {
+        width: 75%;
+        height: 30px;
+        border-radius: 5px;
+        margin-left: 15%;
+    }
+
+    #swatch {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: 1px solid white;
+    }
+
+    #vis {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 77%;
+        height: 100%;
+    }
+
+    h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        color: white;
+        font-size: 20px;
+        padding-left: 1%;
+    }
+
+    svg {
+        margin-top: 3%;
+    }
+
+
+    .states {
+      fill: none;
+      stroke: #fff;
+      stroke-linejoin: round;
+    }
+
+    div.tooltip {   
+        position: absolute;         
+        text-align: left;           
+        width: 150px;                   
+        height: 130px;                  
+        padding: 5px;               
+        font: 12px sans-serif;      
+        background: white;  
+        border: 0px;    
+        font-size: 14px;    
+        border-radius: 3px;         
+        pointer-events: none;
+        box-shadow: 4px 12px 10px #888888;      
+    }
+
+    .nodata {
+        text-align: right;
+    }
+</style>
+
+
+<body>
+
+    <div id= "nav">
+        <h2></h2>
+    </div>
+
+    <div id="container">
+
+        <div id="vis">
+            <svg width="960" height="600"></svg>
+        </div>
+
+        <div id="control">
+            <p style="padding-left: 10px; font-weight: bold;">Filter by drought level</p>
+            <p style="padding-left: 10px;">Select from the drop down to see incidence of different levels of drought</p>
+            <ul>
+                <li><div style = "background-color: #ebebeb;" id="swatch" class = "nodata"></div>* No data</li>
+                <li><div style = "background-color: #919191;" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="Nothing" checked>No drought</li>
+                <li><div style = "background-color: rgb(253,201,180);" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="D0" checked>D0: Abnormally dry</li>
+                <li><div style = "background-color: rgb(252,138,107);" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="D1" checked>D1: Moderate drought</li>
+                <li><div style = "background-color: rgb(239,69,51);" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="D2" checked>D2: Severe drought</li>
+                <li><div style = "background-color: rgb(187,21,26);" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="D3" checked>D3: Extreme drought</li>
+                <li><div style = "background-color: rgb(103,0,13);" id="swatch"></div><input id="cxbx" type="checkbox" name="level" value="D4" checked>D4: Exceptional drought</li>
+            </ul>
+            <p style="padding-left: 10px; font-weight: bold;">Filter by state</p>
+            <select id="drop-down">
+                <option>Choose one:</option>
+            </select>
+            <button>Clear dropdown</button>
+
+            <div id="buffer">
+                <p style="font-weight: bold;">Data description:</p>
+                <p>The cumulative U.S. Drought Monitor statistics combine drought categories for a comprehensive percent of area in drought. For example, the D0 category shows the percent of the area that is classified as D0 or worse.</p>
+                <p><a href="https://droughtmonitor.unl.edu/About/AbouttheData/StatisticsExplanation.aspx" target="_blank">Source</a></p>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+var title = d3.select("h2")
+    .text("US Drought by County");
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var rateById = d3.map();
+var dataMap = d3.map();
+var stateMap = d3.map();
+
+var projection = d3.geoAlbersUsa()
+    .scale(1280)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geoPath()
+    .projection(projection);
+
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+d3.queue()
+    .defer(d3.json, "js/us.json")
+    .defer(d3.tsv, "tsv/drought.tsv", function(d) { 
+
+        var mapval = [+d.Nothing, +d.D0, +d.D1, +d.D2, +d.D3, +d.D4]
+        rateById.set(d.FIPS, mapval); 
+
+        var items = {
+            "Week": d.Week, 
+            "County": d.County,
+            "State": d.State,
+            "Nothing": d.Nothing,
+            "D0": d.D0,
+            "D1": d.D1,
+            "D2": d.D2,
+            "D3": d.D3,
+            "D4": d.D4,
+            "ValidStart": d.ValidStart,
+            "ValidEnd": d.ValidStart
+        }
+
+        dataMap.set(d.FIPS, items);
+        stateMap.set(d.FIPS, d.State);
+
+    })
+    .await(ready);
+
+var listLevels = ["Nothing", "D0", "D1", "D2", "D3", "D4"];
+
+function ready(error, us, level) {
+
+      svg.append("g")
+          .attr("class", "counties")
+        .selectAll("path")
+          .data(topojson.feature(us, us.objects.counties).features)
+        .enter()
+          .append("path")
+          .attr("d", path)
+          .attr("id", "ty")
+          .style("fill", "#c4c4c4")
+          .style("stroke", "white")
+          .style("stroke-width", ".5")
+          
+      svg.append("path")
+          .datum(topojson.mesh(us, us.objects.states, function(a, b) { 
+            return a !== b; 
+          }))
+          .attr("class", "states")
+          .attr("d", path);
+
+    d3.selectAll(".counties").selectAll("path")
+        .style("fill", function(d) {
+            var curr = rateById.get(d.id);
+            return colorUp(curr);
+        })
+        .on("mouseover", function(d) {
+            d3.select(this).style("fill", "blue");
+
+            var divdata = dataMap.get(d.id);
+
+            var st = "<b>" + divdata.State + "</b>";
+            var cty = "<b>" + divdata.County + "</b>";
+            var loc = cty + ", " + st + "<br>";
+            var nothing = "<b>No drought</b>: " + divdata.D0 + "%<br>";
+            var d12 = "<b>D0</b>: " + divdata.D0 + "%" + "<br>" + "<b>D1</b>: " + divdata.D1 + "%" + "<br>";
+            var d345 = "<b>D2</b>: " + divdata.D2 + "%" + "<br>" + "<b>D3</b>: " + divdata.D3 + "%" + "<br>" + "<b>D4</b>: " + divdata.D4 + "%<br>";
+
+            div.transition()
+                .duration(200)
+                .style("opacity", 1)   
+            div .html(loc + nothing + d12 + d345)
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+            d3.select(this).style("fill", function(d) {
+                var empty = [];
+                var indices = [];
+                var empties = $('input[type="checkbox"]').filter(function() {
+                    return !this.checked;
+                })
+                for (var i = 0; i < empties.length; i++) {
+                    empty.push(empties[i].value);
+                    indices.push(mapIndices(empties[i].value));
+                }
+
+                var curr = rateById.get(d.id);
+                if (!curr) {
+                    return colorUp(curr);
+                } else {
+                    var unchkd = [6];
+                    for (var i = 0; i < 6; i++) {
+                        unchkd[i] = curr[i];
+                    }
+                    for (var i = 0; i < indices.length; i++) {
+                        unchkd[indices[i]] = 0;
+                    }
+                    return colorUp(unchkd);
+                }
+            });
+
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);
+        })
+}
+
+function newColor() {
+    var empty = [];
+        var indices = [];
+
+        var empties = $('input[type="checkbox"]').filter(function() {
+            return !this.checked;
+        })
+
+        for (var i = 0; i < empties.length; i++) {
+            empty.push(empties[i].value);
+            indices.push(mapIndices(empties[i].value));
+        }
+
+        d3.selectAll(".counties").selectAll("path")
+            .style("fill", function(d) {
+                var curr = rateById.get(d.id);
+                if (!curr) {
+                    return colorUp(curr);
+                } else {
+                    var unchkd = [6];
+                    for (var i = 0; i < 6; i++) {
+                        unchkd[i] = curr[i];
+                    }
+                    for (var i = 0; i < indices.length; i++) {
+                        unchkd[indices[i]] = 0;
+                    }
+                    return colorUp(unchkd);
+                }
+            });
+}
+
+$('button').on("click", function() {
+    newColor();
+})
+
+function colorPaths() {
+
+    $('input:checkbox').change(function() {
+        newColor();
+    })
+}
+
+colorPaths();
+
+
+$("#drop-down").change(function() {
+
+
+    var drop_st = (this.value).split("- ")[1];
+
+    d3.selectAll(".counties").selectAll("path").style("fill", function(d) {
+        var curr_st = stateMap.get(d.id);
+
+        if (drop_st == curr_st) {
+
+            var empty = [];
+            var indices = [];
+            var empties = $('input[type="checkbox"]').filter(function() {
+                return !this.checked;
+            })
+
+            for (var i = 0; i < empties.length; i++) {
+                empty.push(empties[i].value);
+                indices.push(mapIndices(empties[i].value));
+            }
+            
+            var curr = rateById.get(d.id);
+
+                if (!curr) {
+                    return colorUp(curr);
+                } else {
+                    var unchkd = [6];
+                    for (var i = 0; i < 6; i++) {
+                        unchkd[i] = curr[i];
+                    }
+                    for (var i = 0; i < indices.length; i++) {
+                        unchkd[indices[i]] = 0;
+                    }
+                    return colorUp(unchkd);
+            }
+
+        } else {
+            return "#ebebeb";
+        }
+    })
+})
+
+
+function colorUp(curr) {
+    if(!curr) {
+        return "#ebebeb";
+    } else if (curr.every(function(e) { return e == 0;})){
+        return "#ebebeb";
+    } else {
+        for (var i = curr.length-1; i >= 0; i--) {
+            if (curr[i] > 0) {
+                var val = colorMap(i);
+                return mapColors(val);
+            } else {
+                continue;
+            }
+        }
+    }
+}
+
+function fillDropDwn(ops) {
+    for (var i = 0; i < ops.length; i++) {
+        $("#drop-down").append($('<option>' + ops[i] + '</option>'))
+    }
+}
+
+function mapColors(level) {
+
+    if (level == "Nothing") {
+        return "#919191";
+    } else if (level == "D0") {
+        return "rgb(253,201,180)";
+    } else if (level == "D1") {
+        return "rgb(252,138,107)";
+    } else if (level == "D2") {
+        return "rgb(239,69,51)";
+    } else if (level == "D3") {
+        return "rgb(187,21,26)";
+    } else if (level == "D4") {
+        return "rgb(103,0,13)";
+    } else {
+        return "#c4c4c4";
+    }
+}
+
+function mapIndices(level) {
+    if (level == "Nothing") {
+        return 0;
+    } else if (level == "D0") {
+        return 1;
+    } else if (level == "D1") {
+        return 2;
+    } else if (level == "D2") {
+        return 3;
+    } else if (level == "D3") {
+        return 4;
+    } else if (level == "D4") {
+        return 5;
+    } 
+}
+
+function colorMap(level) {
+    if (level == 0) {
+        return "Nothing";
+    } else if (level == 1) {
+        return "D0";
+    } else if (level == 2) {
+        return "D1";
+    } else if (level == 3) {
+        return "D2";
+    } else if (level == 4) {
+        return "D3";
+    } else if (level == 5) {
+        return "D4";
+    }
+}
+
+
+var stAbrv = [
+    "Alabama - AL",
+    "Alaska - AK",
+    "Arizona - AZ",
+    "Arkansas - AR",
+    "California - CA",
+    "Colorado - CO",
+    "Connecticut - CT",
+    "Delaware - DE",
+    "Florida - FL",
+    "Georgia - GA",
+    "Hawaii - HI",
+    "Idaho - ID",
+    "Illinois - IL",
+    "Indiana - IN",
+    "Iowa - IA",
+    "Kansas - KS",
+    "Kentucky - KY",
+    "Louisiana - LA",
+    "Maine - ME",
+    "Maryland - MD",
+    "Massachusetts - MA",
+    "Michigan - MI",
+    "Minnesota - MN",
+    "Mississippi - MS",
+    "Missouri - MO",
+    "Montana - MT",
+    "Nebraska - NE",
+    "Nevada - NV",
+    "New Hampshire - NH",
+    "New Jersey - NJ",
+    "New Mexico - NM",
+    "New York - NY",
+    "North Carolina - NC",
+    "North Dakota - ND",
+    "Ohio - OH",
+    "Oklahoma - OK",
+    "Oregon - OR",
+    "Pennsylvania - PA",
+    "Rhode Island - RI",
+    "South Carolina - SC",
+    "South Dakota - SD",
+    "Tennessee - TN",
+    "Texas - TX",
+    "Utah - UT",
+    "Vermont - VT",
+    "Virginia - VA",
+    "Washington - WA",
+    "West Virginia - WV",
+    "Wisconsin - WI",
+    "Wyoming - WY"
+]
+
+fillDropDwn(stAbrv);
+
+
+</script>
