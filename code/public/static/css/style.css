@@ -1,0 +1,95 @@
+
+.container {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	font: normal 16px sans-serif;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	text-align: center;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-bottom: 50px;
+}
+
+.container img {
+	height: 65px;
+	width: 150px;
+	border: none;
+	margin: none;
+	padding: none;
+}
+
+#videospace {
+	width: 90%
+	height:80%;
+}
+
+#consent {
+	width: 75%;
+}
+
+#contents {
+	text-align: left;
+}
+
+#contents li {
+	margin: 15px 0;
+}
+
+#clk {
+	text-decoration: none;
+	padding-top: 35px;
+	background-color: #b2ccf4;
+	cursor:pointer;
+	margin: 0 auto;
+	outline: none;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 12px;
+	position: relative;
+	display: block;
+	box-shadow: 0 5px #6f7e96;
+}
+
+.lezgo {
+	width: 100px;
+	height: 50px;
+	border-radius: 5%;
+	font-weight: bold;
+	background-color: #b2ccf4;
+}
+
+button:hover {
+  top: 2px;
+  box-shadow: 0 3px #6f7e96;
+}
+
+button:active {
+  top: 4px;
+  box-shadow: none;
+  padding-bottom: 40px;
+}
+
+#foot {
+	padding-top: 20px;
+}
+
+#btn {
+	padding-top: 20px;
+}
+
+#remem {
+	width: 75%;
+	text-align:left;
+	line-height: 1.5em;
+}
+
+#last {
+	display: flex;
+	flex-direction: column;
+	height: 50%;
+	align-items: center;
+	justify-content: center;
+}

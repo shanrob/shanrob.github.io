@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feedback</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+
+<body>
+	<div class="container">
+		<div id="intro" style="padding-top: 50px;">
+		</div>
+		<div id="last">
+				<h3>Please add anything else you'd like to share about this experiment and your experience:</h3>
+			<form id = "textar" action = "http://localhost:3000/feedback" method="post">
+				<textarea id="textarea" name="open" rows="30" cols="120"></textarea>
+				<button type=submit id = "clk">Done</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+

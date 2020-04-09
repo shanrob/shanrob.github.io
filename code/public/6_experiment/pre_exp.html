@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pre-exp</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+
+<body>
+	<div class="container">
+		<div id="intro" style="padding-top: 50px;">
+		</div>
+		<div id="remem">
+				<h3>You're about to begin the <span style="color:red"><b>REAL EXPERIMENT</b></span></h3>
+				<br>
+				<p><span style="color:red">You will be timed and your answers will be scored for accuracy.</span></p>
+				<h3>Remember: Tips for using the Voyager2 tool</h3>
+				<ul>
+					<li>Basic charts will display automatically.</li>
+					<li>Drag and drop variables to see charts!</li>
+					<li>To remove a variable, click the "x" to the right</li>
+					<li>Use the small, black drop down arrows to change the calculation/aggregation of variables</li>
+					<li>Use the "Wildcard variables to see a related selection of charts</li>
+				</ul>
+
+			<form id = "done_video" action = "http://localhost:3000/exp_ready" method="post">
+				<br>
+				<button type=submit id = "clk" style="background-color: #42f55a;">Ready for the FULL EXPERIMENT</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+	
+<script>
+	var iframe = document.querySelector('iframe');
+    var player = new Vimeo.Player(iframe);
+
+    player.getVideoTitle().then(function(title) {
+      console.log('title:', title);
+    });
+
+    player.on('play', function() {
+      console.log('Played the video');
+    });
+    
+    player.on("timeupdate", function(data) {
+    	if(data.seconds >= 297) {
+    		console.log("Done!");
+    		player.pause();
+    		$('#clk').removeAttr('disabled');
+    	}
+
+    })
+
+    // window.onbeforeunload = function (e) {
+    //     var e = e || window.event;
+    //     var msg = "Do you really want to leave this page?"
+
+    //     // For IE and Firefox
+    //     if (e) {
+    //         e.returnValue = msg;
+    //     }
+
+    //     // For Safari / chrome
+    //     return msg;
+    // };
+</script>

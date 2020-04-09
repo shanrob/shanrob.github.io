@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<html>
+<head>
+	<title>Scorpion++ Demo</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="static/css/scorpion.css">
+	<link rel="stylesheet" href="static/css/slide.css">
+	<script type="text/javascript" src = "static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="static/js/nouislider.min.js"></script>
+	<script type="text/javascript" src = "static/js/d3.v4.min.js"></script>
+	<script type="text/javascript" src="static/js/tabs.js"></script>
+	<script type="text/javascript" src="static/js/data.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js"></script>
+	
+</head>
+<body>
+	
+	<div class = "container">
+
+		<!-- The very tippy top header portion with the title -->
+		<header>
+			<nav></nav>
+			<h2>Scorpion++<h2>
+			<nav></nav>
+		</header>
+		<main>
+
+			<!-- Everything on the left including bars and it's controls -->
+			<div id = "left">
+
+				<!-- This is the whole controls above the bars viz -->
+				<div id = control-container>
+					<div id="controls" style="color:black";></div>
+					<div id="selects">
+						<label style="color:gray; font-size:14px;" for="sorts">Sort by: </label>
+						<select id = "sorts">
+							<option>Most anomalies</option>
+							<option>Target variable name</option>
+							<option>Number of combo items</option>
+						</select>
+					</div>
+				</div>
+				
+				<!-- Barcode viz -->
+				<div id="bars"></div>
+
+			</div>
+
+			<!-- Scatter plot AND the tabs at the bottom. everything in the middle -->
+			<div class = "middle">
+
+				<!-- The whole scatter plot -->
+				<div id = "scatter"></div>
+
+			<!-- 	These are the little tab guys themselves -->
+				<div class = "tabs">
+					<button class = "tablink" onclick="showTab('one', this, 'white')" id="defaultOpen">Recipe 1</button>
+					<button class = "tablink" onclick="showTab('two', this, 'white')">Recipe 2</button>
+					<button class = "tablink" onclick="showTab('three', this, 'white')">Recipe 3</button>
+				</div>
+
+				<!-- Div below the tabs themselves. Content changes dynamically via tabs.js -->
+				<div class = "explain">
+					<div id = "one" class="content">Bacon ipsum dolor amet tail kielbasa sirloin chicken ham. Chislic beef ribs ball tip ham venison shank t-bone ribeye cow short ribs andouille burgdoggen tenderloin fatback leberkas. Prosciutto boudin rump brisket tail. Ball tip turkey chicken, sausage turducken tongue buffalo t-bone tenderloin.</div>
+					<div id = "two" class="content">Turkey ribeye shank porchetta swine flank short ribs tail beef fatback. Corned beef biltong pork belly picanha. Tongue corned beef shankle pork, alcatra picanha pastrami buffalo hamburger flank. Andouille flank burgdoggen, beef ribs cow turkey bacon salami fatback meatloaf spare ribs pancetta. Prosciutto pancetta pastrami short loin chislic meatball short ribs spare ribs porchetta tongue landjaeger hamburger venison.</div>
+					<div id = "three" class="content">Rump prosciutto strip steak chicken, ground round pork loin tail. Cow jowl frankfurter strip steak prosciutto buffalo pork belly shankle sausage ham hock burgdoggen hamburger pork chop swine pork. Ham hock pork prosciutto jerky meatloaf, pork belly filet mignon. Jowl pork chop pork loin spare ribs picanha meatball. Cow tail pastrami picanha pork belly turkey flank corned beef chuck shankle turducken drumstick.</div>	
+				</div>
+				
+			</div>
+
+			<!-- The whole right panel -->
+			<div id = "right">
+				<!-- Place holder -->
+				<div id="right-controls">Something about things and stuff regarding these crazy town line charts?</div>
+
+				<!-- The line chart viz's -->
+				<div id = "sml-mpls"></div>
+			</div>
+
+		</main>
+
+		<footer>
+			<p style = "font-size: 12px; color:white;">Our awesome in-progress prototype</p>
+		</footer>
+	</div>
+
+	</div>
+
+
+</body>
+</html>
+
+<!-- These are the js files that hold the d3 for the viz's themselves. There's one per vis:
+bars.js = the barcodes
+scatter.js = the scatterplot/future projection
+line.js = the line charts on the right panel -->
+<script type="text/javascript" src="static/js/bars.js"></script>
+<script type="text/javascript" src="static/js/scatter.js"></script>
+<script type="text/javascript" src="static/js/lines.js"></script>

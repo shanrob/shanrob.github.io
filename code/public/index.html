@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome!</title>
+<!-- 	<meta http-equiv="Content-Security-Policy" content="font-src 'self' data:; img-src 'self' data:; default-src 'self' http://localhost:3000/"> -->
+	<link rel="stylesheet" href="static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- 	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png"> -->
+</head>
+<body>
+	<div class="container">
+		<div id="intro" style="padding-top: 50px;">
+			<img src="static/imgs/valtlogo.png">
+			<p>Visual Analytics Lab at Tufts</p>
+		</div>
+		<div id="consent">
+			<ol style="text-align: left;">
+				<h3>This study takes place in 5 parts: </h3>
+				<li> <b>Consent form:</b> review and sign electronically for your protection.</li>
+				<br>
+				<li><b>Tutorial video:</b> A short video on how to use the Voyager data visualization tool.</li>
+				<br>
+				<li><b>Practice question:</b> An example of the experiment questions using Voyager.</li>
+				<br>
+				<li> <b>Experiment questions:</b>Using Voyager for data visualization, you will be asked questions about the data.<span style = "color:red"> Please answer these questions to the best of your ability.</span></li>
+				<br>
+				<li><b>Post-experiment questionnaire:</b>a brief survey about your experience.</li>
+			</ol>
+
+			<p style = "color:red">It is very important that you <b>do not click the "back" button or refresh during your session.</b> Doing so may result in your session being lost.</p>
+
+<!-- 			<p ><b>To start, please enter your Amazon worker ID</b>, and click the button below to go to the consent form.</p> -->
+			<form action="http://localhost:3000/workerid" method="post" id = "start">
+<!-- 				<label> Amazon Worker Id: </label><input id="txt" type="text" name="workerid">
+				<br> -->
+				<br>
+				<button type="submit" id = "clk" >Continue to consent form</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+	// $(document).ready(function() {
+	//      $('#clk').attr('disabled','disabled');
+	//      $('#txt').keyup(function() {
+	//         if($(this).val() != '') {
+	//            $('#clk').removeAttr('disabled');
+	//         }
+	//         else {
+	//         $('#clk').attr('disabled','disabled');
+	//         }
+	//      });
+
+	// 	$("#clk").on("click", function() {
+	// 		window.location.href = "/2_consent/consent.html";
+	// 	})
+	//  });
+
+</script>

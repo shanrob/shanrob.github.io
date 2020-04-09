@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pratice question</title>
+	<link rel="stylesheet" href="../static/css/questions.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+<body>
+	<div class="container">
+
+		<div id="voyager">
+
+			<iframe id="if" src="https://vega.github.io/voyager/"></iframe>
+
+			<div id = "questions">
+
+				<div id="top-text">
+					<h4>Directions: Build a chart</h4>
+					<ol style="margin-top: 2px; margin-bottom: -10px;">
+						<li>Click <b>Load</b></li>
+						<li>Select the <b>Cars</b> data set</li>
+						<li>Add <b>Year</b> to the <b>x axis</b></li>
+						<li>Add <b>Weight_in_lbs</b> to the <b>y axis</b></li>
+						<li>Select the small, black <b>drop down arrow</b> of the <b>Weight_in_lbs</b> variable you just put on the y axis</li>
+						<li>Select the <b>MEAN</b> radio button in the drop down menu</li>
+						<li>Add <b>Origin</b> to <b>color</b></li>
+					</ol>
+					<h4>Task: Identify relationship</h4>
+					<ol style="margin-top: 2px; padding-top: none;">
+						<li>Observe the relationship between the three countries for Weight_in_lbs over the years.</li>
+						<li>Find another variable that shows a similar relationship for the three countries over the year.</li>
+						<li>Once you've identified the variable, select it from the drop down below, then click submit.</li>
+					</ol>
+				</div>
+
+				<div id="clk">
+					<form id="form" action="http://localhost:3000/answer_practice" method="post">
+						<select name = "pqa" id="answers">
+								<option name = "pqa" value="noAnswer" style="font-style: italic;">Choose variable</option>
+							    <option name = "pqa" value="avg_Horsep">MEAN Horsepower</option>
+							    <option name = "pqa" value="avg_Accel">MEAN Acceleration</option>
+							    <option name = "pqa" value="avg_Displace">MEAN Displacement</option>
+							    <option name = "pqa" value="avg_MPG">MEAN Miles per Gallon</option>
+							    <option name = "pqa" value="none">None of these</option>
+						</select>
+						<label>Describe the relationship (optional):</label>
+						<input type="text" name="describe" id="txt">
+						<div id="result"></div>
+						<button id="btn" type=submit>Submit</button>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+	function showAnswer() {
+		console.log("hello?");
+		var exp_header = "<h4 style = 'color: red;'>Incorrect: Solution:</h4>";
+		var exp_body = "<ol style='margin-top: 2px; margin-bottom: -10px;'><li>Remove <b>Weight_in_lbs</b> from the y axis</li><li>Select <b>Quantitative Fields</b> from <b>Wildcard Fields</b> and add it to the y axis</li><li>Select the small, black drop down arrow of the <b>Quantitative Fields</b> pill you just put on the y axis</li><li>Select the <b>MEAN</b> radio button in the drop down menu</li><li>Browse the charts to find one that looks similar to the first chart you created with Weight_in_lbs.</li><li>You can probably tell that charts with either <b>Displacement</b> or <b>Horsepower</b> have a similar shape.</li></ol><h4 style='color:blue;'>Don't worry!</h4><p>*There are a number of ways to come to this conclusion. Make sure you try out the UI elements to find the right answers!*</p>"
+
+		$("#top-text").html(exp_header + exp_body);
+	}
+
+	$(document).ready(function() {
+	     $('#btn').attr('disabled','disabled');
+	     $('#answers').on("change", function() {
+	        if($("#answers").val() != 'noAnswer') {
+	           $('#btn').removeAttr('disabled');
+	        }
+	        else {
+	        $('#btn').attr('disabled','disabled');
+	        }
+	     });
+
+	     var wrongCount = 0;
+	     $("#btn").on("click", function() {
+	     	if ($("#answers").val() != "avg_Horsep" && $("#answers").val() != "avg_Displace") {
+	     		wrongCount+=1;
+	     		$("#result").html("Incorrect. Review solution above");
+	     		showAnswer();
+	     		$('#btn').attr('disabled','disabled');
+	     	}
+	     })
+
+	 });
+
+
+
+</script>

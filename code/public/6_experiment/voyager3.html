@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Voyager experiment</title>
+	<link rel="stylesheet" href="../static/css/questions.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+<body>
+	<div class="container">
+
+		<div id="voyager">
+
+			<iframe id="if" src="https://vega.github.io/voyager/"></iframe>
+
+			<div id = "questions">
+
+				<div id="top-text">
+					<h4>Directions: Build a chart</h4>
+					<p style="font-style: italic; font-size: 14px;">*You may have to further interact and manipulate the tool to answer this</p>
+					<ol style="margin-top: 2px; margin-bottom: -10px;">
+						<li>Click <b>Load</b></li>
+						<li>Select the <b>Movies</b> data set</li>
+						<li>Add <b>US_Gross</b> to the <b>x axis</b></li>
+						<li>Add <b>Worldwide_Gross</b> to the <b>y axis</b></li>
+					</ol>
+					<h4>Task: Identify relationship</h4>
+					<ol style="margin-top: 2px; padding-top: none;">
+						<li>Observe the relationship of these 2 variables.</li>
+						<li>Find <b>TWO DIFFERENT</b> variables (not US_Gross or Worldwide_Gross) that shows a similar relationship</li>
+						<li>Once you've identified the variables, select them from the drop down below</li>
+						<li>Describe the relationship below</li>
+						<li>Click submit.</li>
+					</ol>
+				</div>
+
+				<div id="clk">
+					<form id="form" action="http://localhost:3000/exp_3" method="post">
+						<label>Variable choice #1:</label>
+						<select name = "qe3a" id="answers">
+								<option name = "qe3a" value="noAnswer" style="font-style: italic;">Choose variable</option>
+							    <option name = "qe3a" value="Production_Budget">Production_Budget</option>
+							    <option name = "qe3a" value="Rotten_Tomatoes">Rotten_Tomatoes</option>
+							    <option name = "qe3a" value="Running_time">Running_time</option>
+							    <option name = "qe3a" value="US_DVD_Sales">US_DVD_Sales</option>
+						</select>
+						<label>Variable choice #2:</label>
+						<select name = "qe3b" id="answers">
+								<option name = "qe3b" value="noAnswer" style="font-style: italic;">Choose variable</option>
+							    <option name = "qe3b" value="Production_Budget">Production_Budget</option>
+							    <option name = "qe3b" value="Rotten_Tomatoes">Rotten_Tomatoes</option>
+							    <option name = "qe3b" value="Running_time">Running_time</option>
+							    <option name = "qe3b" value="US_DVD_Sales">US_DVD_Sales</option>
+						</select>
+						<label>Describe the relationship:</label>
+						<input type="text" name="describe" id="txt">
+						<div id="result"></div>
+						<button id="btn" type=submit disabled>Submit question</button>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+	$(document).on('keypress', function() {
+
+			if($("#txt").val() == "") {
+				$('#btn').attr('disabled','disabled');
+			} else {
+				$('#btn').removeAttr('disabled');
+			}
+		});
+
+	$("#btn").on("click", function() {
+		if($("#txt").val() == "") {
+			$('#btn').attr('disabled','disabled');
+		} else {
+			$('#btn').removeAttr('disabled');
+		}
+	});
+
+</script>

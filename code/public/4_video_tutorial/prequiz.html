@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pre-practice</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+
+<body>
+	<div class="container">
+		<div id="intro" style="padding-top: 50px;">
+		</div>
+		<div id="remem">
+				<h3>You're about to take a <span style="color:blue;">practice question!</span></h3>
+				<p> Once you answer the practice question, you will move to the full experiment.</p>
+				<h3>Remember: Tips for using the Voyager2 tool</h3>
+				<ul>
+					<li>Basic charts will display automatically.</li>
+					<li>Drag and drop variables to see charts!</li>
+					<li>To remove a variable, click the "x" to the right</li>
+					<li>Use the small, black drop down arrows to change the calculation/aggregation of variables</li>
+					<li>Use the "Wildcard variables to see a related selection of charts</li>
+				</ul>
+
+			<form id = "done_video" action = "http://localhost:3000/prequiz_ready" method="post">
+				<br>
+				<button type=submit id = "clk">Ready for the practice quiz</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+	// window.onbeforeunload = function (e) {
+ //        var e = e || window.event;
+ //        var msg = "Do you really want to leave this page?"
+
+ //        // For IE and Firefox
+ //        if (e) {
+ //            e.returnValue = msg;
+ //        }
+
+ //        // For Safari / chrome
+ //        return msg;
+ //    };
+</script>

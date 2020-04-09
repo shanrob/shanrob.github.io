@@ -1,0 +1,83 @@
+{
+  "user_data": [
+    {
+      "id": "bloop",
+      "datetime": "2020-4-9 11:20:9",
+      "consent_resp": "yes",
+      "pqa_response": [
+        {
+          "practice_answer": "avg_Displace",
+          "practice_describe": ""
+        }
+      ],
+      "exp1": [
+        {
+          "exp1": "none",
+          "exp1_describe": "gffghfgh",
+          "timeto": 104629
+        }
+      ],
+      "exp1_diff": [
+        {
+          "1": "4",
+          "2": "5",
+          "3": "4",
+          "4": "5",
+          "5": "4"
+        }
+      ],
+      "exp2": [
+        {
+          "exp2_var": "Rotten_Tomatoes",
+          "exp2_agg": "Rotten_Tomatoes",
+          "exp2_describe": "jhgdjytd",
+          "timeto": 145465
+        }
+      ],
+      "exp2_diff": [
+        {
+          "1": "4",
+          "2": "4",
+          "3": "4",
+          "4": "5",
+          "5": "4"
+        }
+      ],
+      "exp3": [
+        {
+          "exp3a": "Rotten_Tomatoes",
+          "exp3b": "US_DVD_Sales",
+          "exp3_describe": "hjdjytd",
+          "timeto": 55206
+        }
+      ],
+      "exp3_diff": [
+        {
+          "1": "3",
+          "2": "2",
+          "3": "4",
+          "4": "3",
+          "5": "5"
+        }
+      ],
+      "demogs_resps": [
+        {
+          "1": "36-45",
+          "2": "Female",
+          "3": "less-hs",
+          "4": [
+            "",
+            "2"
+          ],
+          "5": "4",
+          "6": "3"
+        }
+      ],
+      "post_survey_results": [
+        {
+          "1": "hi!"
+        }
+      ]
+    }
+  ]
+}

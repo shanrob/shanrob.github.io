@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Question 1 difficulty</title>
+	<link rel="stylesheet" href="../static/css/soc-med-survey.css">
+	<script src="https://kit.fontawesome.com/79f7ea7d6a.js"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h3>Question 2: Difficulty</h3>
+		<p><b>All answers are required</b></p>
+		<form id="diff2" action="http://localhost:3000/exp2_diff" method="post">
+			1) How <b>mentally demanding</b> was the previous question?
+				<ul style="list-style: none;">
+					<li><input type="radio" name="diff2_1" value="1" required>1 - Very low<br></li>
+					<li><input type="radio" name="diff2_1" value="2" required>2 <br></li>
+					<li><input type="radio" name="diff2_1" value="3" required>3 <br></li>
+					<li><input type="radio" name="diff2_1" value="4" required>4 <br></li>
+					<li><input type="radio" name="diff2_1" value="5" required>5 <br></li>
+					<li><input type="radio" name="diff2_1" value="6" required>6 <br></li>
+					<li><input type="radio" name="diff2_1" value="7" required>7 - Very high<br></li>
+				</ul>
+
+            2) How <b>hurried or rushed</b> was the pace of the task?
+                <ul style="list-style: none;">
+                    <li><input type="radio" name="diff2_2" value="1" required>1 - Very low<br></li>
+                    <li><input type="radio" name="diff2_2" value="2" required>2 <br></li>
+                    <li><input type="radio" name="diff2_2" value="3" required>3 <br></li>
+                    <li><input type="radio" name="diff2_2" value="4" required>4  <br></li>
+                    <li><input type="radio" name="diff2_2" value="5" required>5 <br></li>
+                    <li><input type="radio" name="diff2_2" value="6" required>6 <br></li>
+                    <li><input type="radio" name="diff2_2" value="7" required>7 - Very high<br></li>
+                </ul>
+
+            3) How <b>successful</b> were you in accomplishing the task you were asked to do?
+                <ul style="list-style: none;">
+                    <li><input type="radio" name="diff2_3" value="1" required>1 - Failure<br></li>
+                    <li><input type="radio" name="diff2_3" value="2" required>2 <br></li>
+                    <li><input type="radio" name="diff2_3" value="3" required>3 <br></li>
+                    <li><input type="radio" name="diff2_3" value="4" required>4  <br></li>
+                    <li><input type="radio" name="diff2_3" value="5" required>5 <br></li>
+                    <li><input type="radio" name="diff2_3" value="6" required>6 <br></li>
+                    <li><input type="radio" name="diff2_3" value="7" required>7 - Perfect<br></li>
+                </ul>
+
+            4) How <b>hard did you have to work</b> to do your level of performance?
+                <ul style="list-style: none;">
+                    <li><input type="radio" name="diff2_4" value="1" required>1 - Very low<br></li>
+                    <li><input type="radio" name="diff2_4" value="2" required>2 <br></li>
+                    <li><input type="radio" name="diff2_4" value="3" required>3 <br></li>
+                    <li><input type="radio" name="diff2_4" value="4" required>4  <br></li>
+                    <li><input type="radio" name="diff2_4" value="5" required>5 <br></li>
+                    <li><input type="radio" name="diff2_4" value="6" required>6 <br></li>
+                    <li><input type="radio" name="diff2_4" value="7" required>7 - Very high<br></li>
+                </ul>
+
+
+            5) How <b>insecure, discouraged, irritated, stressed or annoyed </b>were you? 
+                <ul style="list-style: none;">
+                    <li><input type="radio" name="diff2_5" value="1" required>1 - Very low<br></li>
+                    <li><input type="radio" name="diff2_5" value="2" required>2 <br></li>
+                    <li><input type="radio" name="diff2_5" value="3" required>3 <br></li>
+                    <li><input type="radio" name="diff2_5" value="4" required>4  <br></li>
+                    <li><input type="radio" name="diff2_5" value="5" required>5 <br></li>
+                    <li><input type="radio" name="diff2_5" value="6" required>6 <br></li>
+                    <li><input type="radio" name="diff2_5" value="7" required>7 - Very high<br></li>
+                </ul>
+
+
+			<div id="continue">
+				<button type="submit">Continue<i class="fas fa-arrow-right"></i></button>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	//if you click Prefer not to answer, it disables the other options (checkbox only)
+	$("input#PNTA").click(function() {
+		if(this.checked) {
+			$("input#multi").attr("disabled", true);
+		} else {
+			$("input#multi").removeAttr("disabled");
+		}
+	})
+
+	//requires at least one answer for checkboxes (multi answer)
+	var requiredCheckboxes = $(':checkbox[required]');
+	requiredCheckboxes.change(function(){
+        if(requiredCheckboxes.is(':checked')) {
+        	console.log("checked");
+            requiredCheckboxes.removeAttr('required');
+        } else {
+        	console.log("UNchecked");
+            requiredCheckboxes.attr('required', 'required');
+        }
+    });
+
+	//if you choose "other please specify" you have to answer
+    var othertxt1 = $('.othertxt1');
+    var otherchk1 = $('.otherchk1');
+    otherchk1.change(function() {
+    	if(otherchk1.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt1.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt1.removeAttr('required');
+    	}
+    })
+
+    	//if you choose "other please specify" you have to answer
+    var othertxt3 = $('.othertxt3');
+    var otherchk3 = $('.otherchk3');
+    otherchk3.change(function() {
+    	if(otherchk3.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt3.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt3.removeAttr('required');
+    	}
+    })
+
+        	//if you choose "other please specify" you have to answer
+    var othertxt4 = $('.othertxt4');
+    var otherchk4 = $('.otherchk4');
+    otherchk4.change(function() {
+    	if(otherchk4.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt4.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt4.removeAttr('required');
+    	}
+    })
+
+</script>

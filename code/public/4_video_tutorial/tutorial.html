@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video tutorial</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+
+<body>
+	<div class="container">
+		<div id="intro" style="padding-top: 20px;">
+		</div>
+		<div id="videospace">
+				<h3>Training section</h3>
+				<p> Please press play to watch a short video on how to use Voyager. When you're done, click the button at the bottom of the page to continue to the practice questions.</p>
+
+					<iframe src="https://player.vimeo.com/video/199084718#t=0m13s" width="840" height="500" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+			<form id = "done_video" action = "http://localhost:3000/done_video" method="post">
+				<br>
+				<button type=submit id = "clk" disabled>Continue to practice quiz</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+	
+<script>
+	var iframe = document.querySelector('iframe');
+    var player = new Vimeo.Player(iframe);
+
+    player.getVideoTitle().then(function(title) {
+      console.log('title:', title);
+    });
+
+    player.on('play', function() {
+      console.log('Played the video');
+    });
+    
+    player.on("timeupdate", function(data) {
+    	if(data.seconds >= 224) {
+    		console.log("Done!");
+    		player.pause();
+            $("iframe").hide();
+    		$('#clk').removeAttr('disabled');
+    	}
+
+    })
+
+    // window.onbeforeunload = function (e) {
+    //     var e = e || window.event;
+    //     var msg = "Do you really want to leave this page?"
+
+    //     // For IE and Firefox
+    //     if (e) {
+    //         e.returnValue = msg;
+    //     }
+
+    //     // For Safari / chrome
+    //     return msg;
+    // };
+</script>

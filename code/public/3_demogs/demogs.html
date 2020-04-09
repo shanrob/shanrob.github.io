@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demographics survey</title>
+	<link rel="stylesheet" href="../static/css/soc-med-survey.css">
+	<script src="https://kit.fontawesome.com/79f7ea7d6a.js"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h3>Part 3: Demographics</h3>
+		<p><b>The following are a few questions about you:<br> *All answers are required</b></p>
+
+		<form id="1" action="http://localhost:3000/demogs" method="post">
+
+			1) How old are you?
+				<ul style="list-style: none;">
+					<li><input type="radio" name="one" value="18-25" required>18-25<br></li>
+					<li><input type="radio" name="one" value="26-35" required>26-35<br></li>
+					<li><input type="radio" name="one" value="36-45" required>36-45<br></li>
+					<li><input type="radio" name="one" value="46-55" required>46-55<br></li>
+					<li><input type="radio" name="one" value="56-65" required>56-65<br></li>
+					<li><input type="radio" name="one" value="65+" required>65+<br></li>
+					<li><input type="radio" name="one" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+			2) What is your gender?
+				<ul style="list-style: none;">
+					<li><input type="radio" name="two" value="Female" required>Female<br></li>
+					<li><input type="radio" name="two" value="Male" required>Male<br></li>
+					<li><input type="radio" name="two" value="NB3" required>Non-binary/third gender<br></li>
+					<li><input type="radio" name="two" value="Self" class="otherchk3" required>Prefer to self-describe <input type="text" name="other-gender" value="" class="othertxt3"><br></li>
+					<li><input type="radio" name="two" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+			3) What is the highest level of school you have completed, or highest degree you have received?
+				<ul style="list-style: none;">
+					<li><input type="radio" name="three" value="less-hs" required>Less than a high school degree or equivalent (i.e. GED)<br></li>
+					<li><input type="radio" name="three" value="hs" required>High school degree or equivalent (i.e. GED)<br></li>
+					<li><input type="radio" name="three" value="some-col" required>Some college, no degree<br></li>
+					<li><input type="radio" name="three" value="assoc" required>Associates degree <br></li>
+					<li><input type="radio" name="three" value="bach" required>Bachelors degree <br></li>
+					<li><input type="radio" name="three" value="grad" required>Graduate degree (MS, MD, PhD, JD, etc.) <br></li>
+					<li><input type="radio" name="three" value="trade" required>Professional or Trade certification/licensure <br></li>
+					<li><input type="radio" name="three" value="other" class="otherchk4" required>Other/not listed - please list here: <input type="text" name="four" value="" class="othertxt4" ><br></li>
+					<li><input type="radio" name="three" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+			4)	How familiar are you with Microsoft Excel?
+				<ul>
+					<li><input type="radio" name="four" value="1" required>1 - Barely/Not at all<br></li>
+					<li><input type="radio" name="four" value="2" required>2<br></li>
+					<li><input type="radio" name="four" value="3" required>3<br></li>
+					<li><input type="radio" name="four" value="4" required>4<br></li>
+					<li><input type="radio" name="four" value="5" required>5 - Very<br></li>
+					<li><input type="radio" name="four" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+			5)	How familiar are you with Tableau?
+				<ul>
+					<li><input type="radio" name="five" value="1" required>1 - Barely/Not at all<br></li>
+					<li><input type="radio" name="five" value="2" required>2<br></li>
+					<li><input type="radio" name="five" value="3" required>3<br></li>
+					<li><input type="radio" name="five" value="4" required>4<br></li>
+					<li><input type="radio" name="five" value="5" required>5 - Very<br></li>
+					<li><input type="radio" name="five" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+			6)	Aside from Excel and Tableau, how familiar are you with other, similar visual analytics or data visualization tools?
+				<ul>
+					<li><input type="radio" name="six" value="1" required>1 - Barely/Not at all<br></li>
+					<li><input type="radio" name="six" value="2" required>2<br></li>
+					<li><input type="radio" name="six" value="3" required>3<br></li>
+					<li><input type="radio" name="six" value="4" required>4<br></li>
+					<li><input type="radio" name="six" value="5" required>5 - Very<br></li>
+					<li><input type="radio" name="six" value="PNTA" required>Prefer not to answer<br></li>
+				</ul>
+
+
+			<div id="continue">
+				<button type="submit">Next page <i class="fas fa-arrow-right"></i></button>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	//if you click Prefer not to answer, it disables the other options (checkbox only)
+	$("input#PNTA").click(function() {
+		if(this.checked) {
+			$("input#multi").attr("disabled", true);
+		} else {
+			$("input#multi").removeAttr("disabled");
+		}
+	})
+
+	//requires at least one answer for checkboxes (multi answer)
+	var requiredCheckboxes = $(':checkbox[required]');
+	requiredCheckboxes.change(function(){
+        if(requiredCheckboxes.is(':checked')) {
+        	console.log("checked");
+            requiredCheckboxes.removeAttr('required');
+        } else {
+        	console.log("UNchecked");
+            requiredCheckboxes.attr('required', 'required');
+        }
+    });
+
+	//if you choose "other please specify" you have to answer
+    var othertxt1 = $('.othertxt1');
+    var otherchk1 = $('.otherchk1');
+    otherchk1.change(function() {
+    	if(otherchk1.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt1.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt1.removeAttr('required');
+    	}
+    })
+
+    	//if you choose "other please specify" you have to answer
+    var othertxt3 = $('.othertxt3');
+    var otherchk3 = $('.otherchk3');
+    otherchk3.change(function() {
+    	if(otherchk3.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt3.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt3.removeAttr('required');
+    	}
+    })
+
+        	//if you choose "other please specify" you have to answer
+    var othertxt4 = $('.othertxt4');
+    var otherchk4 = $('.otherchk4');
+    otherchk4.change(function() {
+    	if(otherchk4.is(':checked')) {
+    		// otherOptionTxt.removeAttr('required');
+    		othertxt4.attr('required', 'required');
+    	} else {
+    		// otherOptionTxt.attr('required', 'required');
+    		othertxt4.removeAttr('required');
+    	}
+    })
+
+    // window.onbeforeunload = function (e) {
+    //     var e = e || window.event;
+    //     var msg = "Do you really want to leave this page?"
+
+    //     // For IE and Firefox
+    //     if (e) {
+    //         e.returnValue = msg;
+    //     }
+
+    //     // For Safari / chrome
+    //     return msg;
+    // };
+
+</script>

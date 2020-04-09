@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome!</title>
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+<body>
+	<div class="container" >
+		<div id="intro" style="padding-top: 50px;">
+			<h1>Debrief</h1>
+			<p>Thank you for your participation in this project.</p>
+		</div>
+		<div id="consent" style="text-align: left;">
+			
+			<p>In this experiment, you were asked to participate in an data visualization exercise.</p>
+			
+			<h3>The purpose of this study was to assess user performance on different types of data analysis questions. Specifically, what our researchers refer to as "inferential task" questions. </h3>
+
+			<p>These inferential task questions require a person to "infer" patterns in the data to look for, rather than be told which patterns to look for. For example, you might be shown a chart of company profit over time. If the question is NOT an inferential task, you may be asked to identify another area of the data where a measure "increases linearly over time". As you may remember, this experiment did not tell you the relationship of variables or patterns - simply that there was one. You were required to infer what the patterns were and look for similar ones.</p>
+
+			<p>This study is concerned with the different types of data analysis questions and the performance of the data visualization tools themselves. Your performance will in no way be an evaluation of you or your qualities or abilities.
+
+			<p>All data from this experiment is de-identified and will be kept strictly confidential. Your performance or results will not be analyzed individually, but rather in aggregate, and will in no way be connected to you personally or any of your personal data. After analysis, all comments will be deleted and only stored in aggregate.</p>
+
+			<p>If you have any further questions or comments, you may contact the principal researchers (remco.chang@tufts.edu or shannon.robinson@tufts.edu). If you feel that your rights have been violated, you may contact the Tufts IRB coordinator, Dr. Lara Slobada (lara.slobada@tufts.edu ).</p>
+
+		</div>
+		
+		<div id="last">
+			<form id = "textar" action = "http://localhost:3000/debrief" method="post">
+				<button type=submit id = "clk">Return to Amazon Turk</button>
+			</form>
+		</div>
+
+	</div>
+
+</body>
+</html>
