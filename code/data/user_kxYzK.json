@@ -1,0 +1,65 @@
+{
+  "user_data": [
+    {
+      "id": "kxYzK",
+      "datetime": "2020-4-10 10:36:1",
+      "consent_resp": "yes",
+      "pqa_response": [
+        {
+          "practice_answer": "avg_Horsep",
+          "practice_describe": "sdf"
+        }
+      ],
+      "exp1": [
+        {
+          "exp1": "avg_Displace",
+          "exp1_describe": "asdasd",
+          "timeto": 2970
+        }
+      ],
+      "exp1_diff": [
+        {
+          "1": "4",
+          "2": "2",
+          "3": "5",
+          "4": "5",
+          "5": "2"
+        }
+      ],
+      "exp2": [
+        {
+          "exp2_var": "US_DVD_Sales",
+          "exp2_agg": "Running_time",
+          "exp2_describe": "sadasd",
+          "timeto": 4545
+        }
+      ],
+      "exp2_diff": [
+        {
+          "1": "4",
+          "2": "1",
+          "3": "5",
+          "4": "6",
+          "5": "1"
+        }
+      ],
+      "exp3": [
+        {
+          "exp3a": "US_DVD_Sales",
+          "exp3b": "US_DVD_Sales",
+          "exp3_describe": "sadasdasd",
+          "timeto": 5790
+        }
+      ],
+      "exp3_diff": [
+        {
+          "1": "4",
+          "2": "1",
+          "3": "1",
+          "4": "5",
+          "5": "4"
+        }
+      ]
+    }
+  ]
+}

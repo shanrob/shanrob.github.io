@@ -68,7 +68,11 @@ app.post('/consentResponse', function(req, res) {
     if (consentResponse == "yes") {
         return res.redirect('/2_consent/loc_check.html');
     } else {
-        writeSaveJSON(json, amznWorkId);
+        let data_final = JSON.stringify(json, null, 2);
+        var filepath = "data/user_" + amznWorkId + ".json";
+        fs.writeFileSync(filepath, data_final, (err) => {
+            if(err) throw err;
+        });
         return res.redirect('8_bye/debrief.html');
     } 
 });
@@ -77,8 +81,15 @@ app.post('/consentResponse', function(req, res) {
 app.post('/loc', function(req, res) {
     var loc_resp = req.body.loc;
     if (loc_resp == "yes") {
+        json.user_data[0]["loc_check"] = loc_resp;
         return res.redirect('/4_video_tutorial/prequiz.html');
     } else {
+        json.user_data[0]["loc_check"] = loc_resp;
+        let data_final = JSON.stringify(json, null, 2);
+        var filepath = "data/user_" + amznWorkId + ".json";
+        fs.writeFileSync(filepath, data_final, (err) => {
+            if(err) throw err;
+        });
         return res.redirect('8_bye/debrief.html');
     }
 });
@@ -232,7 +243,7 @@ app.post('/feedback', function(req, res) {
 
     json.user_data[0]["post_survey_results"] = feedback;
     let data_final = JSON.stringify(json, null, 2);
-    var filepath = "data/user_" + "shan" + ".json";
+    var filepath = "data/user_" + amznWorkId + ".json";
     fs.writeFileSync(filepath, data_final, (err) => {
         if(err) throw err;
     });
