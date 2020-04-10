@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Study Location</title>
+	<link rel="stylesheet" href="../static/css/consent.css">
+	<link rel="icon" 
+      type="image/png" 
+      href="https://cdn2.iconfinder.com/data/icons/interface-part-3/32/tiny-heart-512.png">
+</head>
+<body onbeforeunload=”HandleBackFunctionality()”>
+	<div class="container">
+		<div id="intro">
+			<h2>Study location verification</h2>
+		</div>
+		<div id="consent">
+
+			<form action="http://localhost:3000/loc" method="post">
+				Are you currently located in the United States?
+				<br>
+				<br>
+				<input id="yup" value = "yes" type="radio" name="loc" onclick="document.getElementById('btn').disabled=!this.checked;"> Yes, I am currently in the United States.
+				<br>
+				<input id="nope" value = "no" type="radio" name="loc" onclick="document.getElementById('btn').disabled=!this.checked;"> No, I am currently outside the United States.
+				<br>
+				<br>
+				<div id="continue">
+					<button style = "align-self:center" type="submit" id="btn" disabled> Submit and continue </button>
+				</div>
+			</form> 
+			
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+	// function nextPage() {
+	// 	if(document.getElementById("yup").checked) {
+	// 		console.log("yes");
+	// 		window.location.href = "../surveys/socialmedia.html"
+	// 	} else {
+	// 		console.log("no");
+	// 		window.location.href = "../bye.html"
+	// 	}
+	// }
+
+</script>

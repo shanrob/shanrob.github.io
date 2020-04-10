@@ -55,12 +55,21 @@ app.post('/consentResponse', function(req, res) {
     var consentResponse = req.body.resp;
     json.user_data[0]["consent_resp"] = consentResponse;
     if (consentResponse == "yes") {
-        // return res.redirect('/3_demogs/demogs.html');
-        return res.redirect('/4_video_tutorial/tutorial.html');
+        return res.redirect('/2_consent/loc_check.html');
     } else {
         writeSaveJSON(json, amznWorkId);
-        return res.redirect('8_bye/bye.html');
+        return res.redirect('8_bye/debrief.html');
     } 
+});
+
+
+app.post('/loc', function(req, res) {
+    var loc_resp = req.body.loc;
+    if (loc_resp == "yes") {
+        return res.redirect('/4_video_tutorial/prequiz.html');
+    } else {
+        return res.redirect('8_bye/debrief.html');
+    }
 });
 
 app.post('/done_video', function(req, res) {
