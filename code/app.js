@@ -35,11 +35,22 @@ function writeSaveJSON(results) {
     })
 }
 
+function makeRandId(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
 // --------------------------------- PRE-EXPERIMENT ------------------------------------------
 //get's worker ID from first screen and adds it to the json structure
 app.post('/workerid', function(req, res) {
-    // amznWorkId = req.body.workerid;
-    amznWorkId = "bloop";
+    //not reall the worker id, randomly generated string
+    amznWorkId = req.body.workerid;
+    amznWorkId = makeRandId(5);
     var datetime = getDate();
     json = {
         "user_data": [
@@ -186,7 +197,7 @@ app.post('/exp3_diff', function(req, res) {
     json.user_data[0]["exp3_diff"] = exp3_diff;
 
     let data_final = JSON.stringify(json, null, 2);
-    var filepath = "data/user_" + "shan" + ".json";
+    var filepath = "data/user_" + amznWorkId + ".json";
     fs.writeFileSync(filepath, data_final, (err) => {
         if(err) throw err;
     });
