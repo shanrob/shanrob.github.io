@@ -1,0 +1,169 @@
+body {
+	margin:0;
+}
+
+.title {
+	color:black;
+	font-size: 40px;
+	font-family: 'Comic Neue', cursive;
+	font-style: bold;
+	text-align: right;
+	margin-top: 18px; 
+	margin-bottom: 5px;
+}
+
+.clicked {
+	stroke-width:5px;
+	stroke: gray;
+}
+
+.subtitle {
+	font-color:black;
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+	text-align: right;
+	margin-top: 5px;
+}
+
+.right-nav {
+	margin-right: 3%;
+	width: 75%;
+	display: flex;
+	flex-direction: column;
+}
+
+.left-nav {
+	width: 14%;
+	height: 100%;
+	margin-left: 1%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: flex-start;
+	font-color:gray;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100vw;
+	height: 100vh;
+}
+
+header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	height: 20%;
+	margin-bottom: 5px;
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 90%;
+	padding-bottom: 1px;
+}
+
+.vis-right {
+	height: 100%;
+	width: 63%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-right: 1%;
+}
+
+.vis-left {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-direction: columns;
+}
+
+#faces {
+	width: 100%;
+	height: 20%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-content: flex-end;
+}
+
+#top {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 9%;
+}
+
+#bottom {
+	height: 90%;
+	width: 100%;
+}
+
+#char-name {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	color:black;
+	font-size: 30px;
+	font-family: 'Comic Neue', cursive;
+	font-style: bold;
+	text-align: left;
+	width: 30%
+}
+
+.underlines {
+	border-radius: 5px;
+}
+
+#char-quote {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	color:black;
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+	text-align: left;
+	width: 70%;
+	padding-top: 10px;
+}
+
+#drill-down {
+	width: 100%;
+	height: 79%;
+}
+
+
+div.label {   
+    position: absolute;         
+    text-align: center
+    width: auto;              
+    height: 20px;                  
+    font-color:black;
+	font-size: 14px;
+	font-family: 'Lato', sans-serif;            
+    pointer-events: none;    
+}
+
+
+footer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 3%;
+	margin-top: -10px;
+}
+
