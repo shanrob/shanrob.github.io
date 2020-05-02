@@ -32,7 +32,7 @@ var bar_info = d3.select("#overview").append("div")
 
 var data = filename_prefix+"data/total.csv";
 
-d3.csv("data/total.csv", function(data) {
+d3.csv(data, function(data) {
 
 	//populate the drop downs with data
 	function makeBars(season){
