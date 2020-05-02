@@ -216,6 +216,7 @@ d3.csv("/data/total.csv", function(data) {
 
 
 	d3.selectAll("#epbar").on("click", function(d) {
+		console.log("WHYYY")
 
 		main_episode = ep_dict[$(this).attr("class")]
 
