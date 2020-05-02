@@ -145,7 +145,7 @@ var arc = d3.arc()
 
 var formatPercent = d3.format(",.0%");
 
-d3.csv("waffles/data/total.csv", function(data) {
+d3.json("/data/csvjson.json", function(data) {
 
 	function makeDonut(data, season, character, episode) {
 
