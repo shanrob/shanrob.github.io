@@ -1,18 +1,19 @@
 
-
+// start the page with data
 $(window).on("load", function(){
-	console.log("are we getting this?")
 	d3.select(".underline").style("opacity", 1);
 	drawIntro("Leslie Knope");
-
 });
 
+// interaction for clickin on the avatar faces
 $(".mug").on("click", function() {
 	var name = this.id
+	main_peep = name;
+	// draw the name and quote
 	drawIntro(name);
-
 })
 
+// data for the intro quotes
 var quotes = {
 	"Leslie Knope": "I care. I care a lot. It's kinda my thing.",
 	"Tom Haverford": "I have never taken the high road. But I tell other people to 'cause then there's more room for me on the low road.",
@@ -23,15 +24,12 @@ var quotes = {
 	"April Ludgate": "Time is money, money is power, power is pizza, and pizza is knowledge.",
 	"Chris Traeger": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnn Perkins!",
 	"Donna Meagle": "Look I love you like a brother. But right now I hate you. Like my actual brother, Levandrious, who I hate.",
-	"Jerry Gergich": "So I go by Terry now. They already had a Larry in the Parks department, and they suggested that they change my name to Terry. I told them my real name was Garry, and they said 'who cares?' What a fun bunch of guys."
+	"Jerry Gergich": "They already had a Larry in the Parks department, and they suggested that they change my name to Terry. I told them my real name was Garry, and they said 'who cares?' What a fun bunch of guys."
 }
 
-
+//Change the character name and intro text
 function drawIntro(char) {
 	d3.select("#char-name").html(char)
 	d3.select("#char-quote").html('"' + quotes[char] + '"')
 }
 
-function drawCharacterVis(data) {
-
-}

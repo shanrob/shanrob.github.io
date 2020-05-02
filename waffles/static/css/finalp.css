@@ -12,17 +12,32 @@ body {
 	margin-bottom: 5px;
 }
 
-.clicked {
-	stroke-width:5px;
-	stroke: gray;
-}
-
 .subtitle {
 	font-color:black;
 	font-size: 20px;
 	font-family: 'Lato', sans-serif;
 	text-align: right;
 	margin-top: 5px;
+}
+
+.chart-title {
+	font-size: 14px;
+	font-family: 'Lato', sans-serif;
+}
+
+.lilnodeguy {
+	font-size: 12px;
+	font-family: 'Lato', sans-serif;
+}
+
+.othertitle {
+	font-color:black;
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+	text-align: left;
+	margin-top: 5px;
+	margin-left:10%;
+
 }
 
 .right-nav {
@@ -58,67 +73,68 @@ header {
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
-	height: 20%;
+	height: 18%;
 	margin-bottom: 5px;
 }
 
 main {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	width: 100%;
-	height: 90%;
+	height: 81%;
 	padding-bottom: 1px;
 }
 
-.vis-right {
-	height: 100%;
-	width: 63%;
+.controls {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	height: 20%;
+	width: 100%;
 	justify-content: space-between;
-	margin-right: 1%;
-}
-
-.vis-left {
-	width: 50%;
-	height: 100%;
-	display: flex;
-	flex-direction: columns;
 }
 
 #faces {
-	width: 100%;
-	height: 20%;
+	width: 60%;
+	height: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
 	align-content: flex-end;
+	margin-right: 2%;
 }
 
-#top {
+#drop-downs {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	height: 9%;
+	align-items: flex-end;
+	align-content: center;
+	width: 40%;
+	height: 80%;
+	margin-bottom: 10px;
 }
 
-#bottom {
-	height: 90%;
+.visuals {
+	display: flex;
+	flex-direction: row;
+	height: 79%;
 	width: 100%;
+	justify-content: space-between;
 }
+
 
 #char-name {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
-	align-content: center;
-	align-items: center;
+	align-content: flex-start;
 	color:black;
-	font-size: 30px;
+	font-size: 34px;
 	font-family: 'Comic Neue', cursive;
 	font-style: bold;
 	text-align: left;
-	width: 30%
+	width: 25%
+	margin-left:10%;
 }
 
 .underlines {
@@ -130,20 +146,126 @@ main {
 	flex-direction: row;
 	justify-content: flex-start;
 	align-content: center;
-	align-items: center;
 	color:black;
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
 	text-align: left;
-	width: 70%;
+	width: 60%;
 	padding-top: 10px;
 }
 
-#drill-down {
-	width: 100%;
-	height: 79%;
+.tooltip {         
+    text-align: left;           
+    width: auto;              
+    height: 20px;                               
+    font: 12px sans-serif;      
+    border: 0px;     
+    position: absolute;							
+    padding: 2px;				
+    border: 0px;			
+    pointer-events: none;	        
 }
 
+.nums {
+	font-size: 12px;
+	font-family: 'Lato', sans-serif; 
+}
+
+.pienum {
+	font-size: 12px;
+	font-family: 'Lato', sans-serif; 
+}
+
+label {
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+	text-align: left;
+	width: 50%;
+	height: 25%;
+	padding-right: 5%;
+	padding-left: 15%;
+}
+
+#drill-down {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 60%;
+	height: 100%;
+}
+
+#text-info {
+	display: flex;
+	flex-direction: row;
+	height: 12%;
+	width: 100%;
+}
+
+.lilbar:hover {
+	stroke:black;
+}
+
+.slice:hover {
+	stroke: black;
+/*	stroke-width: 2px;*/
+}
+
+#indivs {
+	display: flex;
+	flex-direction: row;
+	height: 87%;
+	width: 100%;
+}
+
+#donut {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 50%;
+}
+
+#talksto {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 50%;
+}
+
+#char-name {
+	display: flex;
+	flex-direction: column;
+	width: 35%;
+	height: 100%;
+	margin-left: 2%;
+}
+
+#char-quote {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 64%;
+}
+
+#overview {
+	width: 40%;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.xaxis {
+	font-family: 'Lato', sans-serif; 
+	font-size: 12px;
+}
+
+.yaxis {
+	font-family: 'Lato', sans-serif; 
+	font-size: 15px;
+}
+
+.episode_title {
+	font-family: 'Lato', sans-serif; 
+	font-size: 14px;
+}
 
 div.label {   
     position: absolute;         
@@ -167,3 +289,16 @@ footer {
 	margin-top: -10px;
 }
 
+#epbar {
+	box-shadow: 6px 8px 8px #ebebeb; 
+	border-radius: 5px;
+	border-top: 1px solid #ebebeb;
+	margin:5px;
+}
+
+#season {
+	width: 50%;
+	height: 26%;
+	border-radius: 5px;
+	margin-right:5%;
+}

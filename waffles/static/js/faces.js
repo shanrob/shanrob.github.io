@@ -1,4 +1,3 @@
-console.log("generating character faces...");
 
 var main_chars = [
 	"Leslie Knope",
@@ -39,6 +38,10 @@ var img_links = [
 	"static/imgs/jerry.jpg"
 ]
 
+var main_season = "s1";
+var main_episode = "1";
+var main_peep = "Leslie Knope"
+
 // some dimensions
 var faces_width = $("#faces").width();
 var faces_height = $("#faces").height();
@@ -47,7 +50,7 @@ var buffer = (0.051 * faces_width);
 
 
 // using svg patterns with imgs to fill the character avatars
-var image_app = d3.select(".vis-right")
+var image_app = d3.select("#faces")
 		.append("svg")
 		.attr("class", "blerb")
 		.attr("width", 1)
@@ -69,8 +72,8 @@ var imgPattern = defs.selectAll("pattern").data(img_links)
 								.append("image")
 									.attr("x", 0)
 									.attr("y", 0)
-									.attr("width", circle_dims)
-									.attr("height", circle_dims)
+									.attr("width", circle_dims*.98)
+									.attr("height", circle_dims*.98)
 									.attr("xlink:href", function(d) {
 										return d;
 									})
@@ -129,16 +132,16 @@ var fcircles = d3.select(".peeps").selectAll("circle")
 				})
 
 // create the "X" axis to display the names
-var xs = d3.scaleBand()
-				.domain(main_chars)
-				.range([0, faces_width])
-var xaxis = d3.axisBottom(xs);
-var plotx = d3.select(".peeps").append("g");
+// var xs = d3.scaleBand()
+// 				.domain(main_chars)
+// 				.range([0, faces_width])
+// var xaxis = d3.axisBottom(xs);
+// var plotx = d3.select(".peeps").append("g");
 
-plotx.attr("class", "axis")
-	.attr("transform", "translate(0," + (faces_height-21) +")")
-					.call(xaxis.tickSize(0))
-						.call(plotx=>plotx.select(".domain").remove())
+// plotx.attr("class", "axis")
+// 	.attr("transform", "translate(0," + (faces_height-17) +")")
+// 					.call(xaxis.tickSize(0))
+// 						.call(plotx=>plotx.select(".domain").remove())
 
 
 // draw the underlines to show which character is selected
@@ -151,15 +154,13 @@ var underlines = d3.select(".peeps").append("g").selectAll("rect")
 										return d;
 									})
 									.attr("width", circle_dims)
-									.attr("height", 4)
+									.attr("height", 7)
 									.attr("x", function(d, i) {
 										return (circle_dims*i);
 									})
-									.attr("rx", 2)
+									.attr("rx", 3)
 									.style("fill", function(d) {
 										return colors[d];
 									})
 									.style("opacity", 0)
-									.attr("transform", "translate(0," + (faces_height - 6) +")")
-
-
+									.attr("transform", "translate(0," + (faces_height*.82) +")")

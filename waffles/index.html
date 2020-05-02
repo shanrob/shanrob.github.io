@@ -35,26 +35,53 @@
 			</nav>
 		</header>
 		<main>
-			<div class = "vis-left">
-				<div class="overview">
-				</div>
+
+			<div class = "controls">
+
+					<div id = "drop-downs">
+						<label>Episodes by season:</label>
+						<select id = "season">
+							<option value = "s1">Season 1</option>
+							<option value = "s2">Season 2</option>
+							<option value = "s3">Season 3</option>
+							<option value = "s4">Season 4</option>
+							<option value = "s5">Season 5</option>
+							<option value = "s6">Season 6</option>
+							<option value = "s7">Season 7</option>
+						</select>
+					</div>
+
+					<div id = "faces"></div>
+
 			</div>
-			<div class = "vis-right">
-				<div id="faces"></div>
-				<div id="drill-down">
-					<div id="top">
-						<div id="char-name"></div>
+
+			<div class = "visuals">
+
+				<div id = "overview"></div>
+
+				<div id = "drill-down">
+
+					<div id = "text-info">
+						<div id = "char-name"></div>
 						<div id = "char-quote"></div>
 					</div>
-					<div id = "bottom"></div>
-				</div>
-			</div>
 
+					<div id = "indivs">
+						<div id = "donut">
+							<p class = "othertitle">Percentage of lines per episode:<p>
+						</div>
+						<div id = "talksto"></div>
+					</div>
+
+				</div>
+
+			</div>
+				
 		</main>
 
-		<footer>
+<!-- 		<footer>
 			<p style = "font-size: 12px; color:white;">Our awesome in-progress prototype</p>
-		</footer>
+		</footer> -->
 
 	</div>
 
@@ -64,5 +91,9 @@
 </body>
 </html>
 
+<script type="text/javascript" src = "static/js/nodedata.js"></script>
 <script type="text/javascript" src = "static/js/faces.js"></script>
 <script type="text/javascript" src = "static/js/indiv.js"></script>
+<script type="text/javascript" src = "static/js/overview.js"></script>
+<script type="text/javascript" src = "static/js/nodelink.js"></script>
+<script type="text/javascript" src = "static/js/donut.js"></script>
