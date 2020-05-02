@@ -28,7 +28,7 @@ var bar_info = d3.select("#overview").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
 
-d3.json("data/csvjson.json", function(data) {
+d3.json("waffles/data/csvjson.json", function(data) {
 
 	//populate the drop downs with data
 	function makeBars(season){
