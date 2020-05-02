@@ -48,6 +48,8 @@ var faces_height = $("#faces").height();
 var circle_dims = (faces_width / (main_chars.length))
 var buffer = (0.051 * faces_width);
 
+$("#seasonnum").html(main_season)
+$("#episodenum").html(main_episode)
 
 // using svg patterns with imgs to fill the character avatars
 var image_app = d3.select("#faces")

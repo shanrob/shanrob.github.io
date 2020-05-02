@@ -12,6 +12,18 @@ body {
 	margin-bottom: 5px;
 }
 
+#info {
+	display: flex;
+	flex-direction: row;
+	height: 8%;
+	width: 100%;
+	text-align: left;
+	padding-left: 20%;
+	font-color:black;
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+}
+
 .subtitle {
 	font-color:black;
 	font-size: 20px;
@@ -31,13 +43,15 @@ body {
 }
 
 .othertitle {
+	height:8%;
 	font-color:black;
 	font-size: 20px;
 	font-family: 'Lato', sans-serif;
 	text-align: left;
-	margin-top: 5px;
-	margin-left:10%;
-
+	padding:none;
+	margin-left: 5%;
+	margin-top:none;
+	margin-bottom: none;
 }
 
 .right-nav {

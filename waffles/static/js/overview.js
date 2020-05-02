@@ -49,13 +49,16 @@ d3.csv("/data/total.csv", function(data) {
 		// small multiple svgs
 		var svgs = d3.select("#overview")
 				.selectAll("svg")
-					.data(ov_data, function(d) {
+					.data(ov_data, function(d, i) {
 						return d.values;
 					})
 
 		svgs.enter()
 			.append("svg")
 				.attr("id", "epbar")
+				.attr("class", function(d, i) {
+					return episode_names[i]
+				})
 				.attr("width", (ov_width) - (ov_width*0.02))
 				.attr("height", svg_height)
 				.style("opacity", 1)
@@ -73,7 +76,7 @@ d3.csv("/data/total.csv", function(data) {
 				.attr("x", (svg_width/2))
 				.attr("y", ystart-2)
 				.text(function(d, i) {
-					return episode_names[i]
+					return episode_names[i];
 				})
 
 		svgs.exit().remove();
