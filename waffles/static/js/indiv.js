@@ -15,12 +15,7 @@ $(".mug").on("click", function() {
 
 $("#info").html("Season: " + 1 + " Episode: " + 1)
 
-$("#epbar").on("click", function(d) {
-	console.log(this.attr("class"))
-	main_episode = this.attr("class")
-	var szn = $("#season").val()
-	$("#info").html("Season: " + szn + " Episode: " + main_episode)
-})
+
 
 // data for the intro quotes
 var quotes = {
