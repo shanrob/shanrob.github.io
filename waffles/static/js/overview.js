@@ -13,8 +13,6 @@ var valuediv = d3.select("#overview").append("div")
     .attr("class", "tooltip")				
     .style("opacity", 0);
 
-
-
 //axes with the X domain hard coded yes I know this is cheating but EH
 var y1 = d3.scaleBand()
 			.domain(main_chars)
@@ -58,10 +56,6 @@ d3.csv("/data/total.csv", function(data) {
 		svgs.enter()
 			.append("svg")
 				.attr("id", "epbar")
-				.attr("class", "selected")
-				.attr("class", function(d) {
-					return d.key;
-				})
 				.attr("width", (ov_width) - (ov_width*0.02))
 				.attr("height", svg_height)
 				.style("opacity", 1)
@@ -87,7 +81,12 @@ d3.csv("/data/total.csv", function(data) {
 		// Create bars for bar charts
 		var barcharts = d3.selectAll("#epbar").selectAll("rect")
 					.data(function(d) {
-						return d.values;
+
+					var sorted = (d.values).sort(function(x, y) {
+							return d3.ascending(x.key, y.key);
+						})
+
+						return sorted;
 					})
 
 			barcharts.enter()
@@ -110,16 +109,11 @@ d3.csv("/data/total.csv", function(data) {
 					})
 					.attr("stroke", function(d) {
 						return "white"
-
-						// console.log(selctd)
-						// if (d.key == "Leslie Knope") {
-						// 	return "black";
-						// } else {
-						// 	return "white"
-						// }
 					})
 					.attr("transform", "translate(0, " + ystart + ")")
 					.on("mouseover", function(d) {
+						// console.log(d.key, d.value, y1(d.key))
+
 
 						bar_info.transition()
 									.duration(300)
