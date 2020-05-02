@@ -13,7 +13,7 @@ var valuediv = d3.select("#overview").append("div")
     .attr("class", "tooltip")				
     .style("opacity", 0);
 
-
+const filename_prefix  = (location.hostname != "localhost"? "/waffles>": "");
 
 //axes with the X domain hard coded yes I know this is cheating but EH
 var y1 = d3.scaleBand()
@@ -29,6 +29,8 @@ var x1 = d3.scaleLinear()
 var bar_info = d3.select("#overview").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
+
+var data = filename_prefix+"data/total.csv";
 
 d3.csv("data/total.csv", function(data) {
 
