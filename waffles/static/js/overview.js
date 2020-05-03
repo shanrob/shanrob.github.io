@@ -66,8 +66,15 @@ d3.json("data/csvjson.json", function(data) {
 	makeBars("s1");
 	$("#season").on("change", function() {
 
+
 		var selectedVal = this.value;
 		makeBars(selectedVal);
+		if (main_episode.length > 1) {
+			var temp = main_episode.split("e")
+			main_episode = temp[1]
+		}
+
+		$(".othertitle").html("Season: " + selectedVal[1] + " Episode: " + main_episode)
 
 		var piefilter = data.filter(function(d) {
 			return (main_chars.includes(d.character) && d.season == selectedVal && d.episode == "1");
@@ -112,7 +119,6 @@ d3.json("data/csvjson.json", function(data) {
 		main_peep = d;
 		var season = $("#season").val();
 
-		console.log(main_episode)
 		if (main_episode.length > 1) {
 			var temp = main_episode.split("e")
 			main_episode = temp[1]
@@ -190,7 +196,7 @@ d3.json("data/csvjson.json", function(data) {
 				.attr("x", (svg_width/2))
 				.attr("y", ystart-2)
 				.text(function(d, i) {
-					return [episode_names[i]]
+					return (i+1) + ": " +[episode_names[i]]
 				})
 
 		svgs.exit().remove();
