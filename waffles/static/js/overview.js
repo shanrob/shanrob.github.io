@@ -1,17 +1,24 @@
 
-// Dimensions for vis area
+// Gonna try to get all this in one file for improved interactions... we'll see how it goes...
+
+
+//////////////////////////////////// set up /////////////////////////////////////
+// Set up the dimensions for the vis areas
 var svg_width = $("#overview").width();
 var svg_height = 210;
 
+// Buffer dimensions for the little bars
 var xstart = svg_width * .01;
 var ystart = svg_height * .1;
+
 // Dimensions for grouped bar chart
 var ov_width = $("#overview").width() * .95;
 var ov_height = $("#overview").height() - 100
 
-var valuediv = d3.select("#overview").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+// tooltip div for the bar chart
+var bar_info = d3.select("#overview").append("div")
+							.attr("class", "tooltip")
+							.style("opacity", 0)
 
 //axes with the X domain hard coded yes I know this is cheating but EH
 var y1 = d3.scaleBand()
@@ -23,14 +30,18 @@ var x1 = d3.scaleLinear()
 			.domain([0, 350])
 			.range([0, ov_width])
 
-// tooltip div
-var bar_info = d3.select("#overview").append("div")
-							.attr("class", "tooltip")
-							.style("opacity", 0)
-
+//////////////////////////////////// data drawing /////////////////////////////////////
 d3.json("data/csvjson.json", function(data) {
 
-	//populate the drop downs with data
+	// Start with season 1, filter on change
+	makeBars("s1");
+	$("#season").on("change", function() {
+
+		var selectedVal = this.value;
+		makeBars(selectedVal);
+	})
+
+
 	function makeBars(season){
 
 		// Process the data for the right season
@@ -41,27 +52,32 @@ d3.json("data/csvjson.json", function(data) {
 		var episode_names = d3.map(filtered, function(d){return(d.epname)}).keys()
 
 		var ov_data = d3.nest()
-					.key(function(d) {return d.episode;})
+					.key(function(d) {return d.ep;})
 					.key(function(d) {return d.character;})
 					.rollup(function(leaves) {return (leaves.length);})
 					.entries(filtered);
 
 		// small multiple svgs
+		// var svgs = d3.select("#overview")
+		// 		.selectAll("svg")
+		// 			.data(ov_data, function(d, i) {
+		// 				return d.values;
+		// 			})
+
 		var svgs = d3.select("#overview")
-				.selectAll("svg")
+					.selectAll("svg")
 					.data(ov_data, function(d, i) {
-						return d.values;
+						return d.key
 					})
 
 		svgs.enter()
 			.append("svg")
 				.attr("id", "epbar")
 				.attr("class", function(d, i) {
-					return episode_names[i]
+					return d.key;
 				})
 				.attr("width", (ov_width) - (ov_width*0.02))
 				.attr("height", svg_height)
-				.style("opacity", 1)
 				.attr("transform", "translate(" + (ov_width*0.02) + ", 0)")
 				.on("mouseover", function(d) {
 					d3.select(this).transition().duration(200).attr("transform", "scale(1.01)")
@@ -76,7 +92,7 @@ d3.json("data/csvjson.json", function(data) {
 				.attr("x", (svg_width/2))
 				.attr("y", ystart-2)
 				.text(function(d, i) {
-					return episode_names[i];
+					return [episode_names[i]]
 				})
 
 		svgs.exit().remove();
@@ -148,13 +164,6 @@ d3.json("data/csvjson.json", function(data) {
 
 		barcharts.exit().remove();
 	}
-
-	makeBars("s1");
-
-	$("#season").on("change", function() {
-		var selectedVal = this.value;
-		makeBars(selectedVal);
-	})
 
 
 });
