@@ -76,11 +76,12 @@ d3.json("data/csvjson.json", function(data) {
 				.entries(piefilter)
 
 
-	makeDonut(donut_data, "Leslie Knope")
-	// d3.select("#overview").selectAll("svg").on("click", function(d) {
-	// 	console.log(this)
-	// 	// makeDonut(d.values, "Leslie Knope")
-	// })
+	makeDonut(donut_data, "Leslie Knope");
+
+	d3.selectAll(".mug").on("click", function(d) {
+		main_peep = d;
+	})
+
 	//////////////////////////////////////////////////////////////////////////////////
 
 	function makeBars(season){
@@ -120,7 +121,10 @@ d3.json("data/csvjson.json", function(data) {
 					d3.select(this).transition().duration(200).attr("transform", "scale(.99)")
 				})
 				.on("click", function(d) {
-					makeDonut(d.values, "Leslie Knope");
+					console.log(d)
+					makeDonut(d.values, main_peep);
+					main_episode = d.key
+					console.log(main_episode)
 				})
 				.append("g")
 				.append("text")
@@ -168,8 +172,6 @@ d3.json("data/csvjson.json", function(data) {
 					})
 					.attr("transform", "translate(0, " + ystart + ")")
 					.on("mouseover", function(d) {
-						// console.log(d.key, d.value, y1(d.key))
-
 
 						bar_info.transition()
 									.duration(300)
@@ -205,23 +207,13 @@ d3.json("data/csvjson.json", function(data) {
 	// function makeDonut(data, season, character, episode) {
 	function makeDonut(pie_data, character) {
 
-		// var filtered = data.filter(function(d) {
-		// 	return (main_chars.includes(d.character) && d.season == season && d.ep == episode);
-		// })
-
 		var label = d3.arc()
 		    .outerRadius(radius - 20)
 		    .innerRadius((radius*.8));
 
-		// var pie_data = d3.nest()
-		// 				.key(function(d) {return d.character})
-		// 				.rollup(function(leaves) {return leaves.length})
-		// 				.entries(filtered)
-
 		var denom = d3.sum(pie_data, function(d) {
 			return d.value;
 		})
-
 
 		var arcs = piesvg.selectAll("arc")
 					.data(pie(pie_data))

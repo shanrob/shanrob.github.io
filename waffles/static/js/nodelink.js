@@ -75,7 +75,7 @@ var link = talksto_svg.append("g")
             .attr("stroke-width", 2)
             .selectAll("line")
             .data(leslie_links, function(d) { 
-                console.log(d.source + "-" + d.target)
+                // console.log(d.source + "-" + d.target)
                 return d.source + "-" + d.target; 
             })
             .enter().append("line")
@@ -111,8 +111,8 @@ simulation.force("link")
 
 function update(newnodes, newlinks, newseason, newepisode, newcharacter) {
 
-    console.log(newnodes)
-    console.log(newlinks)
+    // console.log(newnodes)
+    // console.log(newlinks)
 
     // nodes = d3.select(".nodes").selectAll("g")
     //                     .data(newnodes, function(d) {

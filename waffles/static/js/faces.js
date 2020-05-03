@@ -80,58 +80,79 @@ var imgPattern = defs.selectAll("pattern").data(img_links)
 										return d;
 									})
 
-// svg to hold the chatacter avatars
-var fsvg = d3.select("#faces")
-					.append("svg")
-						.attr("class", "peeps")
-						.attr("width", faces_width)
-						.attr("height", faces_height)
 
+d3.json("data/csvjson.json", function(data) {
 
-// draw the character avatars
-var fcircles = d3.select(".peeps").selectAll("circle")
-					.data(main_chars)
+	var season = $("#season").val();
+// Process the data for the right season
+	var filtered = data.filter(function(d) {
+		return (main_chars.includes(d.character) && d.season == season && d.episode == main_episode);
+	})
 
-	fcircles.enter()
-			.append("circle")
-				.attr("class", "mug")
-				.attr("id", function(d) {
-					return d;
-				})
-				.attr("r", (circle_dims*.93)/2)
-				.attr("cx", function(d, i) {
-					return (circle_dims*i)+buffer;
-				})
-				.attr("cy", faces_height/2.4)
-				.style("fill", function(d, i) {
-					return 'url(#'+ "img_" + i + ")";
-				})
-				.style("stroke-width", "1px")
-				.style("stroke", "gray")
-				.on("mouseover", function(d) {
-					d3.select(this).transition().duration(200)
-													.attr("r", ((circle_dims*.93)/2)+3)
+	var episode_names = d3.map(filtered, function(d){return(d.epname)}).keys()
 
-				})
-				.on("mouseout", function(d) {
-					d3.select(this).transition().duration(300)
-												.attr("r", (circle_dims*.93)/2)
-				})
-				.on("click", function(d) {
-					var currid = d;
-					d3.selectAll(".underline").style("opacity", function(d) {
-						if(currid == d) {
-							return 1;
-						}
-						return 0;
+	var ov_data = d3.nest()
+				.key(function(d) {return d.ep;})
+				.key(function(d) {return d.character;})
+				.rollup(function(leaves) {return (leaves.length);})
+				.entries(filtered);
+
+})
+	
+	// svg to hold the chatacter avatars
+	var fsvg = d3.select("#faces")
+						.append("svg")
+							.attr("class", "peeps")
+							.attr("width", faces_width)
+							.attr("height", faces_height)
+
+	// draw the character avatars
+	var fcircles = d3.select(".peeps").selectAll("circle")
+						.data(main_chars)
+
+		fcircles.enter()
+				.append("circle")
+					.attr("class", "mug")
+					.attr("id", function(d) {
+						return d;
 					})
-					d3.selectAll(".underline").style("fill", function(d) {
-						if(currid == d) {
-							return colors[d];
-						}
-						return "#ccc";
+					.attr("r", (circle_dims*.93)/2)
+					.attr("cx", function(d, i) {
+						return (circle_dims*i)+buffer;
 					})
-				})
+					.attr("cy", faces_height/2.4)
+					.style("fill", function(d, i) {
+						return 'url(#'+ "img_" + i + ")";
+					})
+					.style("stroke-width", "1px")
+					.style("stroke", "gray")
+					.on("mouseover", function(d) {
+						d3.select(this).transition().duration(200)
+														.attr("r", ((circle_dims*.93)/2)+3)
+
+					})
+					.on("mouseout", function(d) {
+						d3.select(this).transition().duration(300)
+													.attr("r", (circle_dims*.93)/2)
+					})
+					.on("click", function(d) {
+						var currid = d;
+						d3.selectAll(".underline").style("opacity", function(d) {
+							if(currid == d) {
+								return 1;
+							}
+							return 0;
+						})
+						d3.selectAll(".underline").style("fill", function(d) {
+							if(currid == d) {
+								return colors[d];
+							}
+							return "#ccc";
+						})
+					})
+
+
+
 
 // create the "X" axis to display the names
 // var xs = d3.scaleBand()
