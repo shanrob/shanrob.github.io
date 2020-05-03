@@ -91,6 +91,8 @@ d3.json("data/csvjson.json", function(data) {
 					.rollup(function(leaves) {return leaves.length})
 					.entries(piefilter)
 		makeDonut(donut_data, d)
+
+		$("#info").html("Season: " + season + " Episode: " + main_episode)
 	})
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -132,10 +134,17 @@ d3.json("data/csvjson.json", function(data) {
 					d3.select(this).transition().duration(200).attr("transform", "scale(.99)")
 				})
 				.on("click", function(d) {
-					console.log(d)
+
 					makeDonut(d.values, main_peep);
 					main_episode = d.key
-					console.log(main_episode)
+
+					var epinfo = main_episode.split("e")
+					var sznsubstring = main_episode.substring(
+					    main_episode.lastIndexOf("s") + 1, 
+					    main_episode.lastIndexOf("e")
+					);
+
+					$("#info").html("Season: " + sznsubstring + ", Episode: " + epinfo[1]);
 				})
 				.append("g")
 				.append("text")
