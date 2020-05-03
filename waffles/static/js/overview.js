@@ -68,6 +68,17 @@ d3.json("data/csvjson.json", function(data) {
 
 		var selectedVal = this.value;
 		makeBars(selectedVal);
+
+		var piefilter = data.filter(function(d) {
+			return (main_chars.includes(d.character) && d.season == selectedVal && d.episode == "1");
+		})
+
+		var donut_data = d3.nest()
+					.key(function(d) {return d.character})
+					.rollup(function(leaves) {return leaves.length})
+					.entries(piefilter)
+
+		makeDonut(donut_data, main_peep);
 	})
 
 	var piefilter = data.filter(function(d) {
@@ -118,7 +129,7 @@ d3.json("data/csvjson.json", function(data) {
 					.entries(piefilter)
 		makeDonut(donut_data, d)
 
-		$("#info").html("Season: " + season + " Episode: " + main_episode)
+		$(".othertitle").html("Season: " + season + " Episode: " + main_episode)
 	})
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +181,7 @@ d3.json("data/csvjson.json", function(data) {
 					    main_episode.lastIndexOf("e")
 					);
 
-					$("#info").html("Season: " + sznsubstring + ", Episode: " + epinfo[1]);
+					$(".othertitle").html("Season: " + sznsubstring + ", Episode: " + epinfo[1]);
 				})
 				.append("g")
 				.append("text")
