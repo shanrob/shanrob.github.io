@@ -83,8 +83,30 @@ d3.json("data/csvjson.json", function(data) {
 
 	d3.selectAll(".mug").on("click", function(d) {
 
+		// animate the little underlines
+		var currid = d;
+			d3.selectAll(".underline").style("opacity", function(d) {
+				if(currid == d) {
+					return 1;
+				}
+				return 0;
+			})
+			d3.selectAll(".underline").style("fill", function(d) {
+				if(currid == d) {
+					return colors[d];
+				}
+				return "#ccc";
+			})
+
 		main_peep = d;
 		var season = $("#season").val();
+
+		console.log(main_episode)
+		if (main_episode.length > 1) {
+			var temp = main_episode.split("e")
+			main_episode = temp[1]
+			console.log(main_episode)
+		}
 
 		var piefilter = data.filter(function(d) {
 			return (main_chars.includes(d.character) && d.season == season && d.episode == main_episode);

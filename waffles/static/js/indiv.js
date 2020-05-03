@@ -13,10 +13,6 @@ $(".mug").on("click", function() {
 	drawIntro(name);
 })
 
-$("#info").html("Season: " + 1 + " Episode: " + 1)
-
-
-
 // data for the intro quotes
 var quotes = {
 	"Leslie Knope": "I care. I care a lot. It's kinda my thing.",

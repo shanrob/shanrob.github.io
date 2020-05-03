@@ -50,6 +50,7 @@ var buffer = (0.051 * faces_width);
 
 $("#seasonnum").html(main_season)
 $("#episodenum").html(main_episode)
+$("#info").html("Season: " + "1" + " Episode: " + main_episode)
 
 // using svg patterns with imgs to fill the character avatars
 var image_app = d3.select("#faces")
@@ -119,6 +120,7 @@ var fcircles = d3.select(".peeps").selectAll("circle")
 				})
 				.on("click", function(d) {
 					var currid = d;
+					console.log(currid)
 					d3.selectAll(".underline").style("opacity", function(d) {
 						if(currid == d) {
 							return 1;
