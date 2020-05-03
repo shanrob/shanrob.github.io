@@ -20,6 +20,10 @@ var bar_info = d3.select("#overview").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
 
+var arc_info = d3.select("#donut").append("div")
+							.attr("class", "tooltip")
+							.style("opacity", 0)
+
 //axes with the X domain hard coded yes I know this is cheating but EH
 var y1 = d3.scaleBand()
 			.domain(main_chars)
@@ -253,6 +257,33 @@ d3.json("data/csvjson.json", function(data) {
 						})
 						.attr("stroke", "white")
 						.attr("stroke-width", "2px")
+						.on("mouseover", function(d) {
+							var thisname = d.data.key;
+							arc_info.transition()
+									.duration(300)
+									.style("opacity", 1);
+
+							arc_info.html(d.data.key)
+				                .style("left", (d3.event.pageX + 55) + "px")		
+				                .style("top", (d3.event.pageY + 55) + "px");
+
+				            d3.selectAll(".lilbar").transition().duration(100).style("opacity", function(d) {
+				            	if (d.key == thisname) {
+				            		return 1;
+				            	} else {
+				            		return 0.25;
+				            	}
+				            })
+						})
+						.on("mouseout", function(d) {
+							arc_info.transition()
+									.duration(100)
+									.style("opacity", 0);
+
+							d3.selectAll(".lilbar").transition().duration(100).style("opacity", function(d) {
+				            	return 1;
+				            })
+						})
 
 			d3.selectAll(".arc").append("text")
 						.attr("text-anchor", "middle")
@@ -263,7 +294,13 @@ d3.json("data/csvjson.json", function(data) {
 						.attr("class", "pienum")
 						.text(function(d) {
 							var labelnum = (d.data.value / denom);
-							return formatPercent(labelnum);
+
+							if (labelnum > 0.01) {
+								return formatPercent(labelnum);
+							} else {
+								return "";
+							}
+
 						})
 
 	}
