@@ -67,7 +67,7 @@ d3.json("data/csvjson.json", function(data) {
 	})
 
 	var piefilter = data.filter(function(d) {
-			return (main_chars.includes(d.character) && d.season == "s1");
+			return (main_chars.includes(d.character) && d.season == "s1" && d.episode == "1");
 		})
 
 	var donut_data = d3.nest()
@@ -75,11 +75,22 @@ d3.json("data/csvjson.json", function(data) {
 				.rollup(function(leaves) {return leaves.length})
 				.entries(piefilter)
 
-
 	makeDonut(donut_data, "Leslie Knope");
 
 	d3.selectAll(".mug").on("click", function(d) {
+
 		main_peep = d;
+		var season = $("#season").val();
+
+		var piefilter = data.filter(function(d) {
+			return (main_chars.includes(d.character) && d.season == season && d.episode == main_episode);
+		})
+
+		var donut_data = d3.nest()
+					.key(function(d) {return d.character})
+					.rollup(function(leaves) {return leaves.length})
+					.entries(piefilter)
+		makeDonut(donut_data, d)
 	})
 
 	//////////////////////////////////////////////////////////////////////////////////
