@@ -3,19 +3,14 @@
 
 
 //////////////////////////////////// set up /////////////////////////////////////
-// Set up the dimensions for the vis areas
+
 var svg_width = $("#overview").width();
 var svg_height = 210;
-
-// Buffer dimensions for the little bars
 var xstart = svg_width * .01;
 var ystart = svg_height * .1;
-
-// Dimensions for grouped bar chart
 var ov_width = $("#overview").width() * .95;
 var ov_height = $("#overview").height() - 100
 
-// tooltip div for the bar chart
 var bar_info = d3.select("#overview").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
@@ -24,7 +19,6 @@ var arc_info = d3.select("#donut").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
 
-//axes with the X domain hard coded yes I know this is cheating but EH
 var y1 = d3.scaleBand()
 			.domain(main_chars)
 			.rangeRound([0, (svg_height-ystart)])
@@ -34,15 +28,15 @@ var x1 = d3.scaleLinear()
 			.domain([0, 350])
 			.range([0, ov_width])
 
-////////////////////////////////////pie chart dims/////////////////////////////////////
 var pie_width = $("#donut").width();
-var pie_height = $("#donut").height();
+var pie_height = $("#donut").height()*.8;
 
 var piesvg = d3.select("#donut").append("svg")
+					.attr("class", "pievg")
 					.attr("width", pie_width)
 					.attr("height", pie_height)
 						.append("g")
-						.attr("transform", "translate(" + (pie_width/2) + ", " + (pie_height/3) + ")")
+						.attr("transform", "translate(" + (pie_width/2) + ", " + (pie_height*.45) + ")")
 
 var pie = d3.pie()
 			.sort(null)
@@ -57,41 +51,19 @@ var arc = d3.arc()
 	.innerRadius(radius*.6);
 
 var formatPercent = d3.format(",.0%");
-//////////////////////////////////// data drawing /////////////////////////////////////
+var oldlinks = mygraph.links;
 
-///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// data drawing /////////////////////////////////////
 d3.json("data/csvjson.json", function(data) {
 
-	// Start with season 1, filter on change
 	makeBars("s1");
-	$("#season").on("change", function() {
+	dropDownChanged();
+	faceWasClicked();
 
-
-		var selectedVal = this.value;
-		makeBars(selectedVal);
-		if (main_episode.length > 1) {
-			var temp = main_episode.split("e")
-			main_episode = temp[1]
-		}
-
-		$(".othertitle").html("Season: " + selectedVal[1] + " Episode: " + main_episode)
-
-		var piefilter = data.filter(function(d) {
-			return (main_chars.includes(d.character) && d.season == selectedVal && d.episode == "1");
-		})
-
-		var donut_data = d3.nest()
-					.key(function(d) {return d.character})
-					.rollup(function(leaves) {return leaves.length})
-					.entries(piefilter)
-
-		makeDonut(donut_data, main_peep);
-	})
 
 	var piefilter = data.filter(function(d) {
 			return (main_chars.includes(d.character) && d.season == "s1" && d.episode == "1");
 		})
-
 	var donut_data = d3.nest()
 				.key(function(d) {return d.character})
 				.rollup(function(leaves) {return leaves.length})
@@ -99,46 +71,8 @@ d3.json("data/csvjson.json", function(data) {
 
 	makeDonut(donut_data, "Leslie Knope");
 
-	d3.selectAll(".mug").on("click", function(d) {
 
-		// animate the little underlines
-		var currid = d;
-			d3.selectAll(".underline").style("opacity", function(d) {
-				if(currid == d) {
-					return 1;
-				}
-				return 0;
-			})
-			d3.selectAll(".underline").style("fill", function(d) {
-				if(currid == d) {
-					return colors[d];
-				}
-				return "#ccc";
-			})
-
-		main_peep = d;
-		var season = $("#season").val();
-
-		if (main_episode.length > 1) {
-			var temp = main_episode.split("e")
-			main_episode = temp[1]
-			console.log(main_episode)
-		}
-
-		var piefilter = data.filter(function(d) {
-			return (main_chars.includes(d.character) && d.season == season && d.episode == main_episode);
-		})
-
-		var donut_data = d3.nest()
-					.key(function(d) {return d.character})
-					.rollup(function(leaves) {return leaves.length})
-					.entries(piefilter)
-		makeDonut(donut_data, d)
-
-		$(".othertitle").html("Season: " + season + " Episode: " + main_episode)
-	})
-
-	//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 	function makeBars(season){
 
@@ -179,15 +113,15 @@ d3.json("data/csvjson.json", function(data) {
 				.on("click", function(d) {
 
 					makeDonut(d.values, main_peep);
-					main_episode = d.key
-
+					main_episode = d.key;
 					var epinfo = main_episode.split("e")
 					var sznsubstring = main_episode.substring(
 					    main_episode.lastIndexOf("s") + 1, 
 					    main_episode.lastIndexOf("e")
 					);
+					updateLineInfo(sznsubstring, epinfo[1]);
+					updateNodes(sznsubstring, epinfo[1], main_peep);
 
-					$(".othertitle").html("Season: " + sznsubstring + ", Episode: " + epinfo[1]);
 				})
 				.append("g")
 				.append("text")
@@ -344,7 +278,69 @@ d3.json("data/csvjson.json", function(data) {
 
 	}
 
+	function upDateDonut(season, episode, character) {
+		var piefilter = data.filter(function(d) {
+				return (main_chars.includes(d.character) && d.season == season && d.episode == main_episode);
+			})
 
+			var donut_data = d3.nest()
+						.key(function(d) {return d.character})
+						.rollup(function(leaves) {return leaves.length})
+						.entries(piefilter)
+			makeDonut(donut_data, main_peep);
+	}
+
+	function updateUnderlines(d) {
+			var currid = d;
+			d3.selectAll(".underline").style("opacity", function(d) {
+				if(currid == d) {
+					return 1;
+				}
+				return 0;
+			})
+			d3.selectAll(".underline").style("fill", function(d) {
+				if(currid == d) {
+					return colors[d];
+				}
+				return "#ccc";
+			})
+	}
+
+	function updateLineInfo(season, episode) {
+		$(".othertitle").html("Season: " + season + " Episode: " + episode);
+	}
+
+	function dropDownChanged() {
+		$("#season").on("change", function() {
+
+			var selectedVal = this.value;
+
+			if (main_episode.length > 1) {
+				var temp = main_episode.split("e")
+				main_episode = temp[1]
+			}
+
+			makeBars(selectedVal);
+			updateLineInfo(selectedVal[1], main_episode)
+			upDateDonut(selectedVal, main_episode, main_peep)
+			updateNodes((selectedVal.split("s"))[1], main_episode, main_peep);
+		})
+	}
+
+	function faceWasClicked() {
+		d3.selectAll(".mug").on("click", function(d) {
+
+			main_peep = d;
+			var season = $("#season").val();
+
+			if (main_episode.length > 1) {
+				var temp = main_episode.split("e")
+				main_episode = temp[1]
+			}
+
+			updateUnderlines(d);
+			upDateDonut(season, main_episode, main_peep)
+			updateNodes((season.split("s"))[1], main_episode, (main_peep.split(" ")[0]))
+		})
+	}
 });
-
-////////////////////////////////////////////////////////////

@@ -178,53 +178,53 @@ function update(newnodes, newlinks, newseason, newepisode, newcharacter) {
 
 }
 
-$(".mug").on("click", function(d) {
+// $(".mug").on("click", function(d) {
 
-    var name = this.id;
-    var names = name.split(" ");
-    var firstname = names[0];
+//     var name = this.id;
+//     var names = name.split(" ");
+//     var firstname = names[0];
 
-    var gnodes = mygraph.nodes;
-    var glinks = mygraph.links;
+//     var gnodes = mygraph.nodes;
+//     var glinks = mygraph.links;
 
-    var flinks = glinks.filter(function(d) {
-        return (d.season == "1" && d.episode == "1" && (d.source == firstname));
-    })
-
-
-    update(gnodes, flinks, "1", "1", firstname)
-
-})
+//     var flinks = glinks.filter(function(d) {
+//         return (d.season == "1" && d.episode == "1" && (d.source == firstname));
+//     })
 
 
-function ticked() {
+//     update(gnodes, flinks, "1", "1", firstname)
 
-    link
-    .attr("x1", function(d) { 
-        return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
+// })
 
-    node
-        .attr("transform", function(d) {
-          return "translate(" + (d.x) + "," + (d.y) + ")";
-        })
-  }
 
-function reticked() {
+// function ticked() {
 
-    links
-    .attr("x1", function(d) { 
-        console.log(d)
-        return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
+//     link
+//     .attr("x1", function(d) { 
+//         return d.source.x; })
+//     .attr("y1", function(d) { return d.source.y; })
+//     .attr("x2", function(d) { return d.target.x; })
+//     .attr("y2", function(d) { return d.target.y; });
 
-    nodes
-        .attr("transform", function(d) {
-          return "translate(" + (d.x) + "," + (d.y) + ")";
-        })
-  }
+//     node
+//         .attr("transform", function(d) {
+//           return "translate(" + (d.x) + "," + (d.y) + ")";
+//         })
+//   }
+
+// function reticked() {
+
+//     links
+//     .attr("x1", function(d) { 
+//         console.log(d)
+//         return d.source.x; })
+//     .attr("y1", function(d) { return d.source.y; })
+//     .attr("x2", function(d) { return d.target.x; })
+//     .attr("y2", function(d) { return d.target.y; });
+
+//     nodes
+//         .attr("transform", function(d) {
+//           return "translate(" + (d.x) + "," + (d.y) + ")";
+//         })
+//   }
 

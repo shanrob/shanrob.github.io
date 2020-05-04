@@ -15,13 +15,14 @@ body {
 #info {
 	display: flex;
 	flex-direction: row;
-	height: 8%;
+	height: 6%;
 	width: 100%;
 	text-align: left;
 	padding-left: 20%;
 	font-color:black;
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
+	margin:none;
 }
 
 .subtitle {
@@ -43,7 +44,7 @@ body {
 }
 
 .othertitle {
-	height:8%;
+	height:6%;
 	font-color:black;
 	font-size: 20px;
 	font-family: 'Lato', sans-serif;
@@ -203,15 +204,15 @@ label {
 #drill-down {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	width: 60%;
+	justify-content: flex-start;
+	width: 62%;
 	height: 100%;
 }
 
 #text-info {
 	display: flex;
 	flex-direction: row;
-	height: 12%;
+	height: 6%;
 	width: 100%;
 }
 
@@ -234,6 +235,7 @@ label {
 #donut {
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
 	height: 100%;
 	width: 50%;
 }
@@ -261,7 +263,7 @@ label {
 }
 
 #overview {
-	width: 40%;
+	width: 38%;
 	height: 100%;
 	overflow-y: auto;
 }
