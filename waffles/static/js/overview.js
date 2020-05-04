@@ -1,9 +1,4 @@
 
-// Gonna try to get all this in one file for improved interactions... we'll see how it goes...
-
-
-//////////////////////////////////// set up /////////////////////////////////////
-
 var svg_width = $("#overview").width();
 var svg_height = 210;
 var xstart = svg_width * .01;
@@ -57,7 +52,7 @@ var arc = d3.arc()
 var formatPercent = d3.format(",.0%");
 var oldlinks = mygraph.links;
 
-//////////////////////////////////// data drawing /////////////////////////////////////
+
 d3.json("data/csvjson.json", function(data) {
 
 	makeBars("s1");
@@ -74,9 +69,6 @@ d3.json("data/csvjson.json", function(data) {
 				.entries(piefilter)
 
 	makeDonut(donut_data, "Leslie Knope");
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
 
 	function makeBars(season){
 
@@ -279,7 +271,6 @@ d3.json("data/csvjson.json", function(data) {
 							}
 
 						})
-
 	}
 
 	function upDateDonut(season, episode, character) {

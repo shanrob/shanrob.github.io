@@ -9,6 +9,7 @@ $(window).on("load", function(){
 $(".mug").on("click", function() {
 	var name = this.id
 	main_peep = name;
+	
 	// draw the name and quote
 	drawIntro(name);
 })

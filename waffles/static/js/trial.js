@@ -33,7 +33,6 @@ var nodes = mygraph.nodes;
 var links = mygraph.links
 var leslie_links = links.filter(function(d) {
     return (d.season == "1" && d.episode == "1")
-      // return (d.season == "1" && d.episode == "1" && d.source == "Leslie Knope");
 })
 
 var max = d3.max(links, function(d) { return d.strength})
@@ -42,10 +41,6 @@ var distanceScale = d3.scaleLinear()
                       .domain([0, 1])
                       .range([200, 0])
 
-
-// .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
-//     .force("collide", d3.forceCollide().strength(.1).radius(32).iterations(1)) 
-
 var simulation = d3.forceSimulation(mygraph.nodes)
     .force("charge", d3.forceManyBody().strength(1))
     .force("collide", d3.forceCollide().strength(.4).radius(20).iterations(1))
@@ -53,7 +48,6 @@ var simulation = d3.forceSimulation(mygraph.nodes)
         return d.source + "-" + d.target;
     }).id(function(d) { return d.id}).distance(function(d) {
         return distanceScale(d.strength);
-      // return distanceScale(d.strength);
     }))
     .force("x", d3.forceX())
     .force("y", d3.forceY())
@@ -119,13 +113,11 @@ function updateNodes(input, season, episode, person) {
     if (person == "Leslie Knope") {
         var filteredlinks = input.filter(function(d) {
             return (d.season == season && d.episode == episode);
-            // return (d.season == season && d.episode == episode && (d.source == person || d.target == person));
         })
     } else {
         person = (person.split(" "))[0];
         var filteredlinks = input.filter(function(d) {
             return (d.season == season && d.episode == episode);
-            // return (d.season == season && d.episode == episode && (d.source == person || d.target == person));
         })
   }
 
