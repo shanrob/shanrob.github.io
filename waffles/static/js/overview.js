@@ -19,6 +19,10 @@ var arc_info = d3.select("#donut").append("div")
 							.attr("class", "tooltip")
 							.style("opacity", 0)
 
+var node_info = d3.select("#donut").append("div")
+							.attr("class", "tooltip")
+							.style("opacity", 0)
+
 var y1 = d3.scaleBand()
 			.domain(main_chars)
 			.rangeRound([0, (svg_height-ystart)])
@@ -58,7 +62,7 @@ d3.json("data/csvjson.json", function(data) {
 
 	makeBars("s1");
 	dropDownChanged();
-	faceWasClicked();
+	// faceWasClicked();
 
 
 	var piefilter = data.filter(function(d) {
@@ -120,7 +124,7 @@ d3.json("data/csvjson.json", function(data) {
 					    main_episode.lastIndexOf("e")
 					);
 					updateLineInfo(sznsubstring, epinfo[1]);
-					updateNodes(sznsubstring, epinfo[1], main_peep);
+					updateNodes(mygraph.links, sznsubstring, epinfo[1], main_peep);
 
 				})
 				.append("g")
@@ -323,24 +327,23 @@ d3.json("data/csvjson.json", function(data) {
 			makeBars(selectedVal);
 			updateLineInfo(selectedVal[1], main_episode)
 			upDateDonut(selectedVal, main_episode, main_peep)
-			updateNodes((selectedVal.split("s"))[1], main_episode, main_peep);
+			updateNodes(mygraph.links, (selectedVal.split("s"))[1], main_episode, main_peep);
 		})
 	}
 
-	function faceWasClicked() {
-		d3.selectAll(".mug").on("click", function(d) {
+	d3.selectAll(".mug").on("click", function(d) {
 
-			main_peep = d;
-			var season = $("#season").val();
+		main_peep = d;
+		var season = $("#season").val();
 
-			if (main_episode.length > 1) {
-				var temp = main_episode.split("e")
-				main_episode = temp[1]
-			}
+		if (main_episode.length > 1) {
+			var temp = main_episode.split("e")
+			main_episode = temp[1]
+		}
 
-			updateUnderlines(d);
-			upDateDonut(season, main_episode, main_peep)
-			updateNodes((season.split("s"))[1], main_episode, (main_peep.split(" ")[0]))
-		})
-	}
+		updateUnderlines(d);
+		upDateDonut(season, main_episode, main_peep)
+		updateNodes(mygraph.links, (season.split("s"))[1], main_episode, this.id)
+
+	})
 });
